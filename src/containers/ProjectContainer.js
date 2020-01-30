@@ -1,33 +1,20 @@
 import React from 'react';
 import ProjectItem from '../components/ProjectItem'
+import { connect } from 'react-redux'
+import { fetchProjects, fetchPosts } from '../actionCreators'
 
 class ProjectContainer extends React.Component {
 
-    state = {
-        allProjects: [],
-        allPosts: []
-      }
     
       componentDidMount() {
-        fetch('http://localhost:3000/api/v1/projects')
-          .then(res => res.json())
-          .then(projects => {
-            this.setState({
-              allProjects: projects
-            })
-          }).then(fetch('http://localhost:3000/api/v1/posts')
-          .then(res => res.json())
-          .then(posts => {
-            this.setState({
-              allPosts: posts
-            })
-          }))
+        this.props.fetchProjects()
+        this.props.fetchPosts()
       }
 
     render() {
-        let projectsArray = this.state.allProjects.map( project => {
+        let projectsArray = this.props.allProjects.map( project => {
             return (
-              <ProjectItem key={project.id} project={project} posts={this.state.allPosts}/>
+              <ProjectItem key={project.id} project={project} posts={this.props.allPosts}/>
             )
           })
 
@@ -42,4 +29,12 @@ class ProjectContainer extends React.Component {
     }
 }
 
-export default ProjectContainer
+const mapStateToProps = (state) => {
+    return {
+        allProjects: state.allProjects,
+        allPosts: state.allPosts
+
+    }
+}
+
+export default connect(mapStateToProps, {fetchProjects, fetchPosts} ) (ProjectContainer)
