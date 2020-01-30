@@ -1,17 +1,21 @@
 import React from 'react';
 import PostItem from './PostItem'
+import { connect } from 'react-redux'
+
+
 
 class ProjectItem extends React.Component {
-    
+
     state = {
         projectIsClicked: false
     }
+    
+    toggleShowPost() {
+        this.setState( prevState => ({
+            projectIsClicked: !prevState.projectIsClicked 
+        }))
+    } 
 
-    handleClick() {
-        this.setState(prevState => ({
-            projectIsClicked: !prevState.projectIsClicked
-          }));
-      }
 
     render() {
         let projectId = this.props.project.id
@@ -27,7 +31,7 @@ class ProjectItem extends React.Component {
         return(
 
             <div >
-                <h3 onClick={() => this.handleClick()} > {this.props.project.name} </h3>
+                <h3 onClick={() => this.toggleShowPost()} > {this.props.project.name} </h3>
                 {this.state.projectIsClicked ? postsArray : ""}
                 <br></br>
                 <button  >Add Post</button>
@@ -37,4 +41,11 @@ class ProjectItem extends React.Component {
     }
 }
 
-export default ProjectItem
+const mapStateToProps = (state) => {
+    return {
+        allProjects: state.allProjects,
+        allPosts: state.allPosts
+    }
+}
+
+export default connect(mapStateToProps, null ) (ProjectItem)

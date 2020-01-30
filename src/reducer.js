@@ -1,13 +1,24 @@
-const initState = {
-    allPosts: [],
-    allProjects: []
-}
+import {
+    FETCH_PROJECTS,
+    FETCH_POSTS
+} from './actionCreators'
 
-const reducer = (prevState = initState, action) => {
+let defaultState = {
+    allProjects: [],
+    allPosts: [],
+}
+ 
+
+let reducer = (prevState=defaultState, action) => {
     switch(action.type) {
-    default:
-        return {prevState}
+        case FETCH_PROJECTS:
+            return { ...prevState, allProjects: action.payload}
+        case FETCH_POSTS:
+            return { ...prevState, allPosts: action.payload}
+        default:
+            return { ...prevState }
     }
 }
+
 
 export default reducer

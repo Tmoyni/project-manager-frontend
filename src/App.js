@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import { connect } from 'react-redux'
 import MainContainer from './containers/MainContainer'
+import { Route } from 'react-router-dom'
 
 class App extends React.Component {
 
@@ -14,33 +14,13 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <MainContainer />
-          
-
-          <br></br>
-
-          {/* <h1>Posts</h1> 
-            {postsArray}
-            <br></br>
-            <button>New Post</button> */}
-      
+        <Route exact path="/" render={(routerProps) => <MainContainer {...routerProps}/> } />
+        <Route exact path="/login" render={() => <div>Log In</div> } />
+        <Route exact path="/signup" render={() => <div>Sign Up</div> } />
       </div>
     );
-
+  
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    allPosts: state.allPosts,
-    allProjects: state.allProjects
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    deletePost: (id) => { dispatch ({type: 'DELETE_POST', id: id}) }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default App
