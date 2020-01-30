@@ -1,26 +1,46 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { connect } from 'react-redux'
+import MainContainer from './containers/MainContainer'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+
+  
+
+
+  render (){
+    console.log(this.props)
+
+
+    return (
+      <div className="App">
+        <MainContainer />
+          
+
+          <br></br>
+
+          {/* <h1>Posts</h1> 
+            {postsArray}
+            <br></br>
+            <button>New Post</button> */}
+      
+      </div>
+    );
+
+  }
 }
 
-export default App;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    allPosts: state.allPosts,
+    allProjects: state.allProjects
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deletePost: (id) => { dispatch ({type: 'DELETE_POST', id: id}) }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
