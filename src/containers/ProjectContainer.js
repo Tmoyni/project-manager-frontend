@@ -1,26 +1,19 @@
 import React from 'react';
-import ProjectItem from '../components/ProjectItem'
 import { connect } from 'react-redux'
-import { fetchProjects, fetchPosts } from '../actionCreators'
+import ProjectItem from '../components/ProjectItem'
 import NewProject from '../components/NewProject'
+import { fetchProjects, fetchPosts, toggleShowNewProject } from '../actionCreators'
+import Button from '@material-ui/core/Button';
+
 
 class ProjectContainer extends React.Component {
 
-state = {
-    showNewProject: true
-}
     
-componentDidMount() {
-this.props.fetchProjects()
-this.props.fetchPosts()
-}
+    componentDidMount() {
+    this.props.fetchProjects()
+    this.props.fetchPosts()
+    }
 
-newProject = (e) => {
-    console.log("clicking")
-    this.setState({
-        showNewProject: true
-    })
-}
 
     render() {
         let projectsArray = this.props.allProjects.map( project => {
@@ -34,9 +27,11 @@ newProject = (e) => {
             
             <div>
                 <h1>Projects</h1> 
-                <button onClick={(e) => this.newProject(e)} >New Project</button>
-                
-                {this.state.showNewProject 
+                <Button  variant="contained" color="primary">
+                    New Project
+                </Button>   
+                             
+                {this.props.showNewProject 
                     ? <NewProject /> 
                         : ""
                 }
@@ -51,9 +46,9 @@ newProject = (e) => {
 const mapStateToProps = (state) => {
     return {
         allProjects: state.allProjects,
-        allPosts: state.allPosts
-
+        allPosts: state.allPosts,
+        showNewProject: state.showNewProject
     }
 }
 
-export default connect(mapStateToProps, {fetchProjects, fetchPosts } ) (ProjectContainer)
+export default connect(mapStateToProps, {fetchProjects, fetchPosts, toggleShowNewProject } ) (ProjectContainer)
