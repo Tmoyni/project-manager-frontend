@@ -27,33 +27,6 @@ class NewProject extends React.Component {
         })
     }
 
-    // createFolder = () => {
-    //     dbx.filesCreateFolder({path: `/${this.state.folderName}`})
-    //         .then( response => {
-    //             this.setState({
-    //                 path_lower: response.path_lower
-    //             })  
-    //         })
-    //         .catch(function(error) {
-    //         console.log(error);
-    //     })
-    // }
-
-    // postToProjects = () => {
-    //     fetch('http://localhost:3000/api/v1/projects', {
-    //             method: 'POST',
-    //             headers: {
-    //               'Content-Type': 'application/json',
-    //               'Accept': 'application/json'
-    //             },
-    //             body: JSON.stringify({ 
-    //                 user_id: 1,
-    //                 name: this.state.projectName,
-    //                 due_date: this.state.dueDate,
-    //                 dropbox_path: this.state.path_lower
-    //             })            
-    //         })
-    // }
     
     handleSubmit = (e) => {
         e.preventDefault();
@@ -77,13 +50,12 @@ class NewProject extends React.Component {
             })
             .catch(function(error) {
             console.log(error);
-        })
+        }).then( this.setState(initialState))
     }
     
 
 
     render(){
-        console.log(this.state)
         
         return(
             <div>

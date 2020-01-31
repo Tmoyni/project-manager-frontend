@@ -1,6 +1,7 @@
 export const FETCH_PROJECTS = "FETCH_PROJECTS"
 export const FETCH_POSTS = "FETCH_POSTS"
 export const TOGGLE_VIEW_PROFILE = "TOGGLE_VIEW_PROFILE"
+export const TOGGLE_SHOW_NEW_PROJECT = "TOGGLE_SHOW_NEW_PROJECT"
 
 
 export const fetchProjects = () => {
@@ -13,6 +14,7 @@ export const fetchProjects = () => {
     }
 }
 
+
 export const fetchPosts = () => {
     return (dispatch) => {
         fetch('http://localhost:3000/api/v1/posts')
@@ -24,6 +26,9 @@ export const fetchPosts = () => {
 }
 
 export const toggleViewProfile = () => ({type: TOGGLE_VIEW_PROFILE})
+
+export const toggleShowNewProject = () => ({type: TOGGLE_SHOW_NEW_PROJECT})
+
 
 
 

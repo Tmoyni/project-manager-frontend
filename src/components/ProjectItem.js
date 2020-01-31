@@ -1,10 +1,20 @@
 import React from 'react';
 import PostItem from './PostItem'
 import { connect } from 'react-redux'
+import AddIcon from '@material-ui/icons/Add';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+
+
+
+
+
+
 
 
 
 class ProjectItem extends React.Component {
+
 
     state = {
         projectIsClicked: false
@@ -16,8 +26,11 @@ class ProjectItem extends React.Component {
         }))
     } 
 
+   
+
 
     render() {
+
         let projectId = parseInt(this.props.project.id)
         let filteredPosts = this.props.posts.filter( function (post) {
             let postProjectId = parseInt(post.attributes.project_id)
@@ -33,10 +46,15 @@ class ProjectItem extends React.Component {
         return(
 
             <div >
-                <h3 onClick={() => this.toggleShowPost()} > {this.props.project.attributes.name} </h3>
+                <h2 onClick={() => this.toggleShowPost()} > {this.props.project.attributes.name} </h2>
+                <IconButton onClick={() => this.deleteProject()} aria-label="delete" >
+                    <DeleteIcon  fontSize="small" />
+                </IconButton>
+
                 {this.state.projectIsClicked ? postsArray : ""}
                 <br></br>
-                <button  >Add Post</button>
+
+                <AddIcon /> Add Post
 
             </div>
         )
