@@ -18,9 +18,11 @@ class ProjectItem extends React.Component {
 
 
     render() {
-        let projectId = this.props.project.id
+        let projectId = parseInt(this.props.project.id)
         let filteredPosts = this.props.posts.filter( function (post) {
-            return post.project_id === projectId
+            let postProjectId = parseInt(post.attributes.project_id)
+
+            return postProjectId === projectId
         })
         let postsArray = filteredPosts.map( post => {
             return (
@@ -31,7 +33,7 @@ class ProjectItem extends React.Component {
         return(
 
             <div >
-                <h3 onClick={() => this.toggleShowPost()} > {this.props.project.name} </h3>
+                <h3 onClick={() => this.toggleShowPost()} > {this.props.project.attributes.name} </h3>
                 {this.state.projectIsClicked ? postsArray : ""}
                 <br></br>
                 <button  >Add Post</button>
