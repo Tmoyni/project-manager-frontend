@@ -27,13 +27,13 @@ class ProjectContainer extends React.Component {
             
             <div>
                 <h1>Projects</h1> 
-                <Button  variant="contained" color="primary">
+                <Button  onClick={this.props.toggleShowNewProject} variant="contained" color="primary">
                     New Project
                 </Button>   
                              
                 {this.props.showNewProject 
                     ? <NewProject /> 
-                        : ""
+                    : ""
                 }
 
                 {projectsArray}
@@ -51,4 +51,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {fetchProjects, fetchPosts, toggleShowNewProject } ) (ProjectContainer)
+export default connect(mapStateToProps, { fetchProjects, fetchPosts, toggleShowNewProject } ) (ProjectContainer)

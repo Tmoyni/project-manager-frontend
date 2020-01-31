@@ -47,7 +47,7 @@ class ProjectItem extends React.Component {
 
             <div >
                 <h2 onClick={() => this.toggleShowPost()} > {this.props.project.attributes.name} </h2>
-                <IconButton onClick={() => this.deleteProject()} aria-label="delete" >
+                <IconButton  aria-label="delete" >
                     <DeleteIcon  fontSize="small" />
                 </IconButton>
 
