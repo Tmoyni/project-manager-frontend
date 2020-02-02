@@ -1,6 +1,8 @@
 import React from 'react';
 import ProjectContainer from './ProjectContainer'
 import UserProfile from '../components/UserProfile'
+import PostCardContainer from './PostCardContainer'
+
 import Navigation from '../components/Navigation'
 import { connect } from 'react-redux'
 import Dropbox from 'dropbox'
@@ -14,24 +16,13 @@ const dbx = new Dropbox.Dropbox({
 
 class MainContainer extends React.Component {
 
-    state = {
-        allFolders: []
-    }
-
-    componentDidMount() {
-        dbx.filesListFolder({  
-            path: "/february paid/sunday funday"  
-          }).then(response => 
-            this.setState ({
-              allFolders: response,
-              isLoaded: true
-            }))
-        }
+ 
 
     render() {
         return(
             <div>
-                <Navigation />
+                {/* <Navigation /> */}
+                <PostCardContainer />
                 {this.props.profileSelected
                     ? <UserProfile />
                     : <ProjectContainer />

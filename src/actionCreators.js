@@ -14,6 +14,17 @@ export const fetchProjects = () => {
     }
 }
 
+// FOR DELETE PROJECT ACTION, WILL NEED TO BE FIXED: 
+// export const deleteProject = (project) => {
+//     return (dispatch) => {
+//         console.log("project to delete", project)
+//         // fetch (`http://localhost:3000/api/v1/projects/${project.id}`, {
+//         //     method: 'DELETE'
+//         // })
+//         .then(res => res.json())   
+//     }
+// }
+
 
 export const fetchPosts = () => {
     return (dispatch) => {
@@ -25,9 +36,14 @@ export const fetchPosts = () => {
     }
 }
 
+
+
+
 export const toggleViewProfile = () => ({type: TOGGLE_VIEW_PROFILE})
 
 export const toggleShowNewProject = () => ({type: TOGGLE_SHOW_NEW_PROJECT})
+
+
 
 
 
