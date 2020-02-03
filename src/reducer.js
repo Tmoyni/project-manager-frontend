@@ -1,23 +1,31 @@
 import {
     FETCH_PROJECTS,
     FETCH_POSTS,
-    TOGGLE_VIEW_PROFILE,
-    TOGGLE_SHOW_NEW_PROJECT
+    VIEW_PROFILE,
+    VIEW_PROJECTS,
+    TOGGLE_SHOW_NEW_PROJECT,
+    VIEW_POST_DETAILS
 } from './actionCreators'
 
 let defaultState = {
     allProjects: [],
     allPosts: [],
     profileSelected: false,
-    showNewProject: false
+    showNewProject: false, 
+    viewPostDetails: true
+
 
 }
  
 
 let reducer = (prevState=defaultState, action) => {
     switch(action.type) {
-        case TOGGLE_VIEW_PROFILE:
-            return { ...prevState, profileSelected: !prevState.profileSelected}
+        case VIEW_PROFILE:
+            return { profileSelected: true}
+        case VIEW_PROJECTS:
+            return { profileSelected: false}
+        case VIEW_POST_DETAILS:
+            return { ...prevState, viewPostDetails: !prevState.viewPostDetails}    
         case TOGGLE_SHOW_NEW_PROJECT:
             return { ...prevState, showNewProject: !prevState.showNewProject}
         case FETCH_PROJECTS:

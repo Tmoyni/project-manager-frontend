@@ -34,7 +34,6 @@ class PostCard extends React.Component {
  
 
     render () {
-        console.log(this.state)
         return (
           <Card width="300px">
             <CardHeader

@@ -1,7 +1,9 @@
 export const FETCH_PROJECTS = "FETCH_PROJECTS"
 export const FETCH_POSTS = "FETCH_POSTS"
-export const TOGGLE_VIEW_PROFILE = "TOGGLE_VIEW_PROFILE"
+export const VIEW_PROFILE = "VIEW_PROFILE"
+export const VIEW_PROJECTS = "VIEW_PROJECTS"
 export const TOGGLE_SHOW_NEW_PROJECT = "TOGGLE_SHOW_NEW_PROJECT"
+export const VIEW_POST_DETAILS = "VIEW_POST_DETAILS"
 
 
 export const fetchProjects = () => {
@@ -13,17 +15,6 @@ export const fetchProjects = () => {
           })
     }
 }
-
-// FOR DELETE PROJECT ACTION, WILL NEED TO BE FIXED: 
-// export const deleteProject = (project) => {
-//     return (dispatch) => {
-//         console.log("project to delete", project)
-//         // fetch (`http://localhost:3000/api/v1/projects/${project.id}`, {
-//         //     method: 'DELETE'
-//         // })
-//         .then(res => res.json())   
-//     }
-// }
 
 
 export const fetchPosts = () => {
@@ -37,11 +28,13 @@ export const fetchPosts = () => {
 }
 
 
+export const viewProfile = () => ({type: VIEW_PROFILE})
 
-
-export const toggleViewProfile = () => ({type: TOGGLE_VIEW_PROFILE})
+export const viewProjects = () => ({type: VIEW_PROJECTS})
 
 export const toggleShowNewProject = () => ({type: TOGGLE_SHOW_NEW_PROJECT})
+
+export const viewPostDetails = () => ({type: VIEW_POST_DETAILS})
 
 
 
