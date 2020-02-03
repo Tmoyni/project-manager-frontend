@@ -1,5 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux'
+import Dropbox from 'dropbox'
 
+
+const dbx = new Dropbox.Dropbox({ 
+    accessToken: process.env.REACT_APP_API_KEY,
+    fetch: fetch
+  });
 class ViewPostDetails extends React.Component {
 
     state = {
@@ -7,7 +14,8 @@ class ViewPostDetails extends React.Component {
         liveDate: '',
         description: '',
         fileName: '', 
-        postName: ''
+        postName: '', 
+        selectedFile: null
     }
 
     handleChange = (e) => {
@@ -16,36 +24,78 @@ class ViewPostDetails extends React.Component {
         })
     }
 
+   
+
+    fileSelectedHandler = (e) => {
+        console.log(e.target.files[0])
+        this.setState({
+            selectedFile: e.target.files[0]
+        })
+    }
+
+    uploadFile = () => {
+        console.log("clicking")
+        let dropbox_path = this.state.selectedFile.name
+        console.log(dropbox_path)
+        dbx.filesUpload({
+            path: `/${dropbox_path}`, 
+            contents: this.state.selectedFile
+        })
+            .then( response => {
+                console.log(response)
+            })
+    }
+
+    
+
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log("state", this.state)
-        console.log("props", this.props)
-
-        // dbx.filesCreateFolder({path: `/${this.state.folderName}`})
-        //     .then( response => {
-        //         console.log(response)
-                // let dropboxpath = response.path_lower
-                // fetch('http://localhost:3000/api/v1/projects', {
-                //     method: 'POST',
-                //     headers: {
-                //     'Content-Type': 'application/json',
-                //     'Accept': 'application/json'
-                //     },
-                //     body: JSON.stringify({ 
-                //         user_id: 1,
-                //         name: this.state.projectName,
-                //         due_date: this.state.dueDate,
-                //         dropbox_path: dropboxpath
-                //     })            
-                // }).then(res => (console.log(res)))     
-
-            // })
-        //     .catch(function(error) {
-        //     console.log(error);
-        // })
+        let dropbox_path = this.props.projectSelected.attributes.dropbox_path
+        dbx.filesCreateFolder({path: `${dropbox_path}`+`/${this.state.postName}`})
+            .then( response => {
+                console.log(response)
+                let dropboxpath = response.path_lower
+                dbx.filesUpload({
+                    path: `${dropboxpath}/${this.state.selectedFile.name}`, 
+                    contents: this.state.selectedFile
+                }).then( response => {
+                    console.log(response)
+                    fetch('http://localhost:3000/api/v1/posts', {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({ 
+                            project_id: this.props.projectSelected.id,
+                            name: this.state.postName,
+                            live_date: this.state.liveDate,
+                            description: this.state.description,
+                            status: "not started",
+                            dropbox_path: dropboxpath,
+                        })            
+                    }).then(res => res.json())
+                    .then(post => {
+                        fetch('http://localhost:3000/api/v1/images', {
+                                    method: 'POST',
+                                    headers: {
+                                    'Content-Type': 'application/json',
+                                    'Accept': 'application/json'
+                                    },
+                                    body: JSON.stringify({ 
+                                        post_id: post.id,
+                                        file_name: this.state.selectedFile.name,
+                                        dropbox_path: `${dropboxpath}/${this.state.selectedFile.name}`
+                                    })            
+                                })
+                        })
+                })
+            })    
     }
 
     render() {
+
+
         return(
             <div>
                 <img/> 
@@ -66,12 +116,22 @@ class ViewPostDetails extends React.Component {
                         Description: <input type="text" name="description" value={this.state.value} onChange={this.handleChange} />
                     </label>
                         <br></br>
+                    <input type="file" onChange={this.fileSelectedHandler}/>
                     <br></br>
                     <input type="submit" value="Submit" />
                 </form>
+
+                {/* <button onClick={this.uploadFile} >Upload</button> */}
+
             </div>
         )
     }
 }
 
-export default ViewPostDetails
+const mapStateToProps = (state) => {
+    return {
+        projectSelected: state.projectSelected
+    }
+}
+
+export default connect(mapStateToProps, null ) (ViewPostDetails)
