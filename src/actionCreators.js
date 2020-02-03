@@ -1,7 +1,9 @@
 export const FETCH_PROJECTS = "FETCH_PROJECTS"
 export const FETCH_POSTS = "FETCH_POSTS"
-export const TOGGLE_VIEW_PROFILE = "TOGGLE_VIEW_PROFILE"
+export const VIEW_PROFILE = "VIEW_PROFILE"
+export const VIEW_PROJECTS = "VIEW_PROJECTS"
 export const TOGGLE_SHOW_NEW_PROJECT = "TOGGLE_SHOW_NEW_PROJECT"
+export const VIEW_POST_DETAILS = "VIEW_POST_DETAILS"
 
 
 export const fetchProjects = () => {
@@ -25,9 +27,16 @@ export const fetchPosts = () => {
     }
 }
 
-export const toggleViewProfile = () => ({type: TOGGLE_VIEW_PROFILE})
+
+export const viewProfile = () => ({type: VIEW_PROFILE})
+
+export const viewProjects = () => ({type: VIEW_PROJECTS})
 
 export const toggleShowNewProject = () => ({type: TOGGLE_SHOW_NEW_PROJECT})
+
+export const viewPostDetails = () => ({type: VIEW_POST_DETAILS})
+
+
 
 
 

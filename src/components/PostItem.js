@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import Dropbox from 'dropbox'
+import Stepper from './Stepper'
 
 const dbx = new Dropbox.Dropbox({ 
     accessToken: process.env.REACT_APP_API_KEY,
@@ -30,8 +31,10 @@ class PostItem extends React.Component {
 
         return(
             <div>
-                <img height="42" width="42" src={this.state.thumbnail} />                
-                <h5>{this.props.post.attributes.name} - {this.props.post.attributes.status}</h5>
+                <img float="left" height="42" width="42" src={this.state.thumbnail} alt={this.props.post.attributes.name}/> 
+                <p display="inline-block">{this.props.post.attributes.name} - {this.props.post.attributes.status}</p>
+   
+                <Stepper />            
             </div>
         )
     }

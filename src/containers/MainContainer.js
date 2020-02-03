@@ -1,37 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import ProjectContainer from './ProjectContainer'
 import UserProfile from '../components/UserProfile'
 import Navigation from '../components/Navigation'
-import { connect } from 'react-redux'
-import Dropbox from 'dropbox'
-
-const dbx = new Dropbox.Dropbox({ 
-    accessToken: process.env.REACT_APP_API_KEY,
-    fetch: fetch
-  });
+import ViewPostDetails from '../components/ViewPostDetails';
 
 
 
 class MainContainer extends React.Component {
 
-    state = {
-        allFolders: []
-    }
-
-    componentDidMount() {
-        dbx.filesListFolder({  
-            path: "/february paid/sunday funday"  
-          }).then(response => 
-            this.setState ({
-              allFolders: response,
-              isLoaded: true
-            }))
-        }
+ 
 
     render() {
         return(
             <div>
                 <Navigation />
+                
                 {this.props.profileSelected
                     ? <UserProfile />
                     : <ProjectContainer />
@@ -45,7 +29,9 @@ class MainContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        profileSelected: state.profileSelected
+        profileSelected: state.profileSelected,
+        viewPostDetails: state.viewPostDetails
+
     }
 }
 
