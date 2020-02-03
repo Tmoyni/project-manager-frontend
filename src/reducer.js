@@ -4,7 +4,7 @@ import {
     VIEW_PROFILE,
     VIEW_PROJECTS,
     TOGGLE_SHOW_NEW_PROJECT,
-    VIEW_POST_DETAILS
+    SHOW_ADD_POST_FORM
 } from './actionCreators'
 
 let defaultState = {
@@ -12,8 +12,8 @@ let defaultState = {
     allPosts: [],
     profileSelected: false,
     showNewProject: false, 
-    viewPostDetails: true
-
+    viewPostDetails: false,
+    projectSelected: null
 
 }
  
@@ -24,8 +24,8 @@ let reducer = (prevState=defaultState, action) => {
             return { profileSelected: true}
         case VIEW_PROJECTS:
             return { profileSelected: false}
-        case VIEW_POST_DETAILS:
-            return { ...prevState, viewPostDetails: !prevState.viewPostDetails}    
+        case SHOW_ADD_POST_FORM:
+            return { ...prevState, viewPostDetails: !prevState.viewPostDetails, projectSelected: action.payload.project}    
         case TOGGLE_SHOW_NEW_PROJECT:
             return { ...prevState, showNewProject: !prevState.showNewProject}
         case FETCH_PROJECTS:

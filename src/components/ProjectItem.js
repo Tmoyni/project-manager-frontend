@@ -7,6 +7,8 @@ import Icon from '@material-ui/core/Icon';
 import Typography from '@material-ui/core/Typography';
 import Dropbox from 'dropbox'
 import ViewPostDetails from './ViewPostDetails'
+import { showAddPostForm } from '../actionCreators'
+
 
 
 const dbx = new Dropbox.Dropbox({ 
@@ -19,7 +21,6 @@ class ProjectItem extends React.Component {
 
     state = {
         projectIsClicked: false,
-        viewPostDetails: false
     }
     
     toggleShowPost() {
@@ -39,12 +40,6 @@ class ProjectItem extends React.Component {
         )
     }
 
-    showAddPostForm = () => {
-        this.setState({
-            viewPostDetails: true
-        })
-    }
-
    
     render() {
 
@@ -58,7 +53,6 @@ class ProjectItem extends React.Component {
         let postsArray = filteredPosts.map( post => {
             return ( <PostItem key={post.id} post={post} /> )
         })
-
         return(
 
             <div >
@@ -68,17 +62,18 @@ class ProjectItem extends React.Component {
                 <IconButton  float="right" onClick={() => this.handleDeleteItem(this.props.project)} aria-label="delete" >
                     <DeleteIcon  fontSize="small" />
                 </IconButton>
+                <button>Edit Project</button>
 
                 {this.state.projectIsClicked 
                     ? <div>
                         {postsArray}
 
-                        <div onClick={() => this.showAddPostForm()}>
+                        <div onClick={() => this.props.showAddPostForm(this.props.project)}>
                             <Icon fontSize="small" color="primary">add_circle</Icon>
                             <Typography variant="button" > Add Post </Typography>
                         </div>
 
-                        { this.state.viewPostDetails ? <ViewPostDetails /> : "" }
+                        { this.props.viewPostDetails ? <ViewPostDetails /> : "" }
                     </div>
                     : ""
                 }
@@ -93,8 +88,10 @@ class ProjectItem extends React.Component {
 const mapStateToProps = (state) => {
     return {
         allProjects: state.allProjects,
-        allPosts: state.allPosts
+        allPosts: state.allPosts,
+        viewPostDetails: state.viewPostDetails, 
+        projectSelected: state.projectSelected
     }
 }
 
-export default connect(mapStateToProps, null ) (ProjectItem)
+export default connect(mapStateToProps, {showAddPostForm} ) (ProjectItem)
