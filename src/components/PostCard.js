@@ -19,21 +19,28 @@ class PostCard extends React.Component {
 
     state = {
         image: null,
-
+        post: null
     }
+
+   
 
 
     componentDidMount() {
-        dbx.filesDownload({  
-            path: this.props.post.attributes.images[0].dropbox_path,
-          }).then(response => 
-            this.setState ({
-                image: URL.createObjectURL(response.fileBlob),
-            }))
+      if (this.props.post.attributes.images.length > 0) {
+        return dbx.filesDownload({  
+                    path: this.props.post.attributes.images[0].dropbox_path,
+                }).then(response => 
+                this.setState ({
+                        image: URL.createObjectURL(response.fileBlob),
+                }))
+    } else (this.setState ({
+        image: "",
+}))
     }
  
 
     render () {
+
         return (
           <Card width="300px">
             <CardHeader
@@ -48,8 +55,15 @@ class PostCard extends React.Component {
             <img width="200" src={this.state.image}/>           
             <CardContent>
               <Typography variant="body2" color="textSecondary" component="p">
-                {this.props.post.attributes.copies[0].text}
+                ClientHandle: {this.props.post.attributes.copies.length > 0 
+                ? this.props.post.attributes.copies[0].text
+                : "No Text Yet" }
+
               </Typography>
+              <button>Edit</button>
+              <button>Approve</button>
+              <button onClick={() => this.props.handleLargePreview(this.props.post)}>Large Preview</button>
+
             </CardContent>
             <CardActions disableSpacing>
               <IconButton aria-label="add to favorites">
@@ -64,24 +78,4 @@ class PostCard extends React.Component {
 export default PostCard
 
 
-// import React from 'react';
-
-// class PostCard extends React.Component {
-//     render() {
-//         return(
-//             <div>
-//                 <h1>Instagram Logo etc</h1>
-//                 <h4>logo</h4>
-//                 <h4>instaname</h4>
-//                 <img/> 
-//                 Live Date
-//                 Description
-//                 File Name
-//                 <button>Edit</button> 
-//                 <button>Approve</button>
-
-//             </div>
-//         )
-//     }
-// }
 

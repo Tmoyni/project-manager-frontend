@@ -73,7 +73,7 @@ class ProjectItem extends React.Component {
                             <Typography variant="button" > Add Post </Typography>
                         </div>
 
-                        { this.props.viewPostDetails ? <ViewPostDetails /> : "" }
+                        {/* { this.props.viewPostDetails ? <ViewPostDetails /> : "" } */}
                     </div>
                     : ""
                 }

@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux'
 import Dropbox from 'dropbox'
 import Stepper from './Stepper'
+import { showAddPostForm, handleEditPost } from '../actionCreators'
+
 
 const dbx = new Dropbox.Dropbox({ 
     accessToken: process.env.REACT_APP_API_KEY,
@@ -29,14 +31,18 @@ class PostItem extends React.Component {
     }))
     }
 
-    handleEditPost = () => {
-        console.log("clicking")
+    handleDeletePost = (post) => {
+        fetch (`http://localhost:3000/api/v1/posts/${post.id}`, {
+            method: 'DELETE'
+        }).then(res => console.log(res))
+        .then(
+            dbx.filesDelete({path: `${post.attributes.dropbox_path}`})
+            .then( response => {console.log(response)}
+             )
+        )
     }
 
    
-
-
-
     render() {
 
         return(
@@ -46,7 +52,10 @@ class PostItem extends React.Component {
    
                 {/* <Stepper />             */}
                 
-                <button onClick={this.handleEditPost} >Edit Post</button>
+                <button onClick={() => this.props.handleEditPost(this.props.post)} >Edit Post</button>
+                <button onClick={() => this.handleDeletePost(this.props.post)} >Delete Post</button>
+                <br></br>
+
             </div>
         )
     }
@@ -54,8 +63,9 @@ class PostItem extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        allPosts: state.allPosts
+        allPosts: state.allPosts,
+        viewPostDetails: state.viewPostDetails, 
     }
 }
 
-export default connect(mapStateToProps, null ) (PostItem)
+export default connect(mapStateToProps, {showAddPostForm, handleEditPost} ) (PostItem)

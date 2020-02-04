@@ -9,9 +9,10 @@ import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import { connect } from 'react-redux'
 import { viewProfile, viewProjects } from '../actionCreators'
+import { Link } from 'react-router-dom' 
+
 
 
 
@@ -46,7 +47,7 @@ function Navigation(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
+      {/* <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" noWrap>
             List
@@ -55,7 +56,7 @@ function Navigation(props) {
              Preview
           </Typography>
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
       <Drawer
         className={classes.drawer}
         variant="permanent"
@@ -66,15 +67,17 @@ function Navigation(props) {
       >
         <div className={classes.toolbar} />
         <List>
-            <ListItem onClick={props.viewProjects}button key="Projects">
-              {/* <ListItemIcon> <InboxIcon /> </ListItemIcon> */}
+          <Link to="/">Projects</Link>
+          <br></br>
+          <Link to="/profile">Profile</Link>
+
+            {/* <ListItem onClick={props.viewProjects}button key="Projects">
               <ListItemText primary="Projects" />
             </ListItem>
 
             <ListItem onClick={props.viewProfile} button key="Profile">
-              {/* <ListItemIcon> <InboxIcon /> </ListItemIcon> */}
               <ListItemText primary="Profile" />
-            </ListItem>
+            </ListItem> */}
         </List>
       </Drawer>
     </div>
