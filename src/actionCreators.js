@@ -4,6 +4,7 @@ export const VIEW_PROFILE = "VIEW_PROFILE"
 export const VIEW_PROJECTS = "VIEW_PROJECTS"
 export const TOGGLE_SHOW_NEW_PROJECT = "TOGGLE_SHOW_NEW_PROJECT"
 export const SHOW_ADD_POST_FORM = "SHOW_ADD_POST_FORM"
+export const EDIT_POST = "EDIT_POST"
 
 
 export const fetchProjects = () => {
@@ -35,6 +36,8 @@ export const viewProjects = () => ({type: VIEW_PROJECTS})
 export const toggleShowNewProject = () => ({type: TOGGLE_SHOW_NEW_PROJECT})
 
 export const showAddPostForm = (project) => ({type: SHOW_ADD_POST_FORM, payload: {project} })
+
+export const handleEditPost = (post) => ({type: EDIT_POST, payload: {post} })
 
 
 

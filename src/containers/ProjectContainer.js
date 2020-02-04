@@ -10,8 +10,8 @@ class ProjectContainer extends React.Component {
 
     
     componentDidMount() {
-    this.props.fetchProjects()
-    this.props.fetchPosts()
+        this.props.fetchProjects();
+        this.props.fetchPosts()
     }
 
 
@@ -26,6 +26,7 @@ class ProjectContainer extends React.Component {
         return(
             
             <div>
+
                 <h1>Projects</h1> 
                 <Button  onClick={this.props.toggleShowNewProject} variant="contained" color="primary">
                     New Project

@@ -1,27 +1,44 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import ProjectContainer from './ProjectContainer'
-import UserProfile from '../components/UserProfile'
-import Navigation from '../components/Navigation'
 import ViewPostDetails from '../components/ViewPostDetails';
-
-
+import PostCardContainer from './PostCardContainer'
 
 class MainContainer extends React.Component {
 
- 
+    state = {
+        previewSelected: false,
+        viewPostDetails: false
+    }
 
+    handleListClick = () => {
+        this.setState ({
+            previewSelected: false
+        })
+    }
+
+    handlePreviewClick = () => {
+        this.setState ({
+            previewSelected: true
+        })
+    }
+ 
     render() {
         return(
             <div>
-                <Navigation />
-                
-                {this.props.profileSelected
-                    ? <UserProfile />
-                    : <ProjectContainer />
-                }
-                
+                <h2 onClick={this.handleListClick}>List</h2>
+                <h2 onClick={this.handlePreviewClick}>Preview</h2>
 
+                {this.props.viewPostDetails
+                    ? <ViewPostDetails />
+                    : ""
+                }
+
+                {this.state.previewSelected 
+                    ? <PostCardContainer />
+                    : <ProjectContainer />
+                }              
+                
             </div>
         )
     }
@@ -30,7 +47,9 @@ class MainContainer extends React.Component {
 const mapStateToProps = (state) => {
     return {
         profileSelected: state.profileSelected,
-        viewPostDetails: state.viewPostDetails
+        viewPostDetails: state.viewPostDetails,
+        projectSelected: state.projectSelected,
+        postSelected: state.postSelected
 
     }
 }

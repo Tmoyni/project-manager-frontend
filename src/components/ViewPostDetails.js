@@ -15,7 +15,8 @@ class ViewPostDetails extends React.Component {
         description: '',
         fileName: '', 
         postName: '', 
-        selectedFile: null
+        selectedFile: null, 
+        image: null
     }
 
     handleChange = (e) => {
@@ -23,30 +24,27 @@ class ViewPostDetails extends React.Component {
             [e.target.name]: e.target.value
         })
     }
-
    
 
     fileSelectedHandler = (e) => {
-        console.log(e.target.files[0])
         this.setState({
             selectedFile: e.target.files[0]
         })
     }
 
-    uploadFile = () => {
-        console.log("clicking")
-        let dropbox_path = this.state.selectedFile.name
-        console.log(dropbox_path)
-        dbx.filesUpload({
-            path: `/${dropbox_path}`, 
-            contents: this.state.selectedFile
-        })
-            .then( response => {
-                console.log(response)
+    componentDidMount() {
+        if (!!this.props.postSelected) {
+            this.setState({
+                postCopy: this.props.postSelected.attributes.copies.length > 0 ? this.props.postSelected.attributes.copies[0].text : "", 
+                liveDate: this.props.postSelected.attributes.live_date,
+                description: this.props.postSelected.attributes.description,
+                fileName: this.props.postSelected.attributes.description, 
+                postName: this.props.postSelected.attributes.name, 
+                selectedFile: this.props.postSelected.attributes.images.length > 0 ? this.props.postSelected.attributes.images[0].dropbox_path : ""
             })
+        }
     }
 
-    
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -101,27 +99,25 @@ class ViewPostDetails extends React.Component {
                 <img/> 
                 <form onSubmit={this.handleSubmit}>
                     <label>
-                        Post Name: <input type="text" name="postName" value={this.state.value} onChange={this.handleChange} />
+                        Post Name: <input type="text" name="postName" value={this.state.postName} onChange={this.handleChange} />
                     </label>
                         <br></br>
                     <label>
-                        Post Copy: <input type="text" name="postCopy" value={this.state.value} onChange={this.handleChange} />
+                        Post Copy: <input type="text" name="postCopy" value={this.state.postCopy} onChange={this.handleChange} />
                     </label>
                         <br></br>
                     <label>
-                        Live Date: <input type="text" name="liveDate" value={this.state.value} onChange={this.handleChange} />
+                        Live Date: <input type="text" name="liveDate" value={this.state.liveDate} onChange={this.handleChange} />
                     </label>
                         <br></br>
                     <label>
-                        Description: <input type="text" name="description" value={this.state.value} onChange={this.handleChange} />
+                        Description: <input type="text" name="description" value={this.state.description} onChange={this.handleChange} />
                     </label>
                         <br></br>
                     <input type="file" onChange={this.fileSelectedHandler}/>
                     <br></br>
                     <input type="submit" value="Submit" />
                 </form>
-
-                {/* <button onClick={this.uploadFile} >Upload</button> */}
 
             </div>
         )
@@ -130,7 +126,8 @@ class ViewPostDetails extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        projectSelected: state.projectSelected
+        projectSelected: state.projectSelected,
+        postSelected: state.postSelected
     }
 }
 
