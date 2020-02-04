@@ -45,20 +45,33 @@ class ViewPostDetails extends React.Component {
         }
     }
 
+    
+    saveImageInfo = (post, dropboxpath) => {
+        fetch('http://localhost:3000/api/v1/images', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+                },
+                body: JSON.stringify({ 
+                    post_id: post.id,
+                    file_name: this.state.selectedFile.name,
+                    dropbox_path: `${dropboxpath}/${this.state.selectedFile.name}`
+                })            
+            })
+    }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        let dropbox_path = this.props.projectSelected.attributes.dropbox_path
-        dbx.filesCreateFolder({path: `${dropbox_path}`+`/${this.state.postName}`})
-            .then( response => {
-                console.log(response)
-                let dropboxpath = response.path_lower
-                dbx.filesUpload({
-                    path: `${dropboxpath}/${this.state.selectedFile.name}`, 
-                    contents: this.state.selectedFile
-                }).then( response => {
-                    console.log(response)
-                    fetch('http://localhost:3000/api/v1/posts', {
+    uploadImageToDropbox = (dropboxpath) => {
+        dbx.filesUpload({
+            path: `${dropboxpath}/${this.state.selectedFile.name}`, 
+            contents: this.state.selectedFile
+        }).then( response => {
+            console.log(response)
+        })
+    }
+
+    savePostInfo = (dropboxpath) => {
+        fetch('http://localhost:3000/api/v1/posts', {
                         method: 'POST',
                         headers: {
                         'Content-Type': 'application/json',
@@ -74,22 +87,24 @@ class ViewPostDetails extends React.Component {
                         })            
                     }).then(res => res.json())
                     .then(post => {
-                        fetch('http://localhost:3000/api/v1/images', {
-                                    method: 'POST',
-                                    headers: {
-                                    'Content-Type': 'application/json',
-                                    'Accept': 'application/json'
-                                    },
-                                    body: JSON.stringify({ 
-                                        post_id: post.id,
-                                        file_name: this.state.selectedFile.name,
-                                        dropbox_path: `${dropboxpath}/${this.state.selectedFile.name}`
-                                    })            
-                                })
-                        })
-                })
+                        this.saveImageInfo(post, dropboxpath)
+                    })
+    }
+    
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        let dropbox_path = this.props.projectSelected.attributes.dropbox_path
+        dbx.filesCreateFolder({path: `${dropbox_path}`+`/${this.state.postName}`})
+            .then( response => {
+                console.log(response)
+                let dropboxpath = response.path_lower
+                    this.uploadImageToDropbox(dropboxpath)
+                    this.savePostInfo(dropboxpath)
             })    
     }
+
+    
 
     render() {
 

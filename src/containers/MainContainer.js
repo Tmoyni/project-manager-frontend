@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import ProjectContainer from './ProjectContainer'
 import ViewPostDetails from '../components/ViewPostDetails';
 import PostCardContainer from './PostCardContainer'
+import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
 
 class MainContainer extends React.Component {
 
@@ -29,15 +31,26 @@ class MainContainer extends React.Component {
                 <h2 onClick={this.handleListClick}>List</h2>
                 <h2 onClick={this.handlePreviewClick}>Preview</h2>
 
-                {this.props.viewPostDetails
-                    ? <ViewPostDetails />
-                    : ""
-                }
+                <Container component="main" maxWidth="sm" >
+                    <Grid container>
+                        <Grid item >
+                                {this.props.viewPostDetails
+                                    ? <ViewPostDetails />
+                                    : ""
+                                }
+                        </Grid>
+                        <Grid item>
+                            {this.state.previewSelected 
+                                ? <PostCardContainer />
+                                : <ProjectContainer />
+                            }                   
+                        </Grid>
+                    </Grid>
+                </Container>
 
-                {this.state.previewSelected 
-                    ? <PostCardContainer />
-                    : <ProjectContainer />
-                }              
+               
+
+                           
                 
             </div>
         )

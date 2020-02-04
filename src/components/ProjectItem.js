@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import Dropbox from 'dropbox'
 import ViewPostDetails from './ViewPostDetails'
 import { showAddPostForm } from '../actionCreators'
+import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
 
 
 
@@ -56,14 +58,27 @@ class ProjectItem extends React.Component {
         return(
 
             <div >
-                
-                <h2 onClick={() => this.toggleShowPost()} > {this.props.project.attributes.name} </h2>
-                
-                <IconButton  float="right" onClick={() => this.handleDeleteItem(this.props.project)} aria-label="delete" >
-                    <DeleteIcon  fontSize="small" />
-                </IconButton>
-                <button>Edit Project</button>
+                <Container component="main" maxWidth="sm">
+                    <Grid container>
+                        <Grid item >
+                            <h2 onClick={() => this.toggleShowPost()} > {this.props.project.attributes.name} </h2>
+                        </Grid>
+                        <Grid item>
+                            <h5>   Due: {this.props.project.attributes.due_date}   </h5>
 
+                        </Grid>
+                        <Grid item>
+                            <button>Edit Project</button>
+                        </Grid>
+                        <Grid item>
+                            <IconButton  onClick={() => this.handleDeleteItem(this.props.project)} aria-label="delete" >
+                                <DeleteIcon  fontSize="small" />
+                            </IconButton>                    
+                        </Grid>
+                    </Grid>
+                </Container>
+                
+                
                 {this.state.projectIsClicked 
                     ? <div>
                         {postsArray}
@@ -73,7 +88,6 @@ class ProjectItem extends React.Component {
                             <Typography variant="button" > Add Post </Typography>
                         </div>
 
-                        {/* { this.props.viewPostDetails ? <ViewPostDetails /> : "" } */}
                     </div>
                     : ""
                 }
