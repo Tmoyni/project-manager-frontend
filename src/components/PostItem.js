@@ -3,6 +3,10 @@ import { connect } from 'react-redux'
 import Dropbox from 'dropbox'
 import Stepper from './Stepper'
 import { showAddPostForm, handleEditPost } from '../actionCreators'
+import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
+
+
 
 
 const dbx = new Dropbox.Dropbox({ 
@@ -47,11 +51,19 @@ class PostItem extends React.Component {
 
         return(
             <div>
-                <img height="42" width="42" src={this.state.thumbnail} alt={this.props.post.attributes.name}/> 
-                <p display="inline-block">{this.props.post.attributes.name} - {this.props.post.attributes.status}</p>
+                
    
                 {/* <Stepper />             */}
-                
+                <Container component="main" maxWidth="xs">
+                <Grid container>
+                    <Grid item >
+                        <img height="42" width="42" src={this.state.thumbnail} alt={this.props.post.attributes.name}/> 
+                    </Grid>
+                    <Grid item>
+                        <p display="inline-block">{this.props.post.attributes.name} - {this.props.post.attributes.status}</p>
+                    </Grid>
+                </Grid>
+                </Container>
                 <button onClick={() => this.props.handleEditPost(this.props.post)} >Edit Post</button>
                 <button onClick={() => this.handleDeletePost(this.props.post)} >Delete Post</button>
                 <br></br>
