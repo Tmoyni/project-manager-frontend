@@ -25,7 +25,6 @@ class ViewPostDetails extends React.Component {
         })
     }
    
-
     fileSelectedHandler = (e) => {
         this.setState({
             selectedFile: e.target.files[0]
@@ -45,22 +44,6 @@ class ViewPostDetails extends React.Component {
         }
     }
 
-    
-    saveImageInfo = (post, dropboxpath) => {
-        fetch('http://localhost:3000/api/v1/images', {
-                method: 'POST',
-                headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-                },
-                body: JSON.stringify({ 
-                    post_id: post.id,
-                    file_name: this.state.selectedFile.name,
-                    dropbox_path: `${dropboxpath}/${this.state.selectedFile.name}`
-                })            
-            })
-    }
-
     uploadImageToDropbox = (dropboxpath) => {
         dbx.filesUpload({
             path: `${dropboxpath}/${this.state.selectedFile.name}`, 
@@ -70,28 +53,57 @@ class ViewPostDetails extends React.Component {
         })
     }
 
-    savePostInfo = (dropboxpath) => {
+    savePostInfo = (dropboxpath) => { 
         fetch('http://localhost:3000/api/v1/posts', {
-                        method: 'POST',
-                        headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                        },
-                        body: JSON.stringify({ 
-                            project_id: this.props.projectSelected.id,
-                            name: this.state.postName,
-                            live_date: this.state.liveDate,
-                            description: this.state.description,
-                            status: "not started",
-                            dropbox_path: dropboxpath,
-                        })            
-                    }).then(res => res.json())
-                    .then(post => {
-                        this.saveImageInfo(post, dropboxpath)
-                    })
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+            },
+            body: JSON.stringify({ 
+                project_id: this.props.projectSelected.id,
+                name: this.state.postName,
+                live_date: this.state.liveDate,
+                description: this.state.description,
+                status: "not started",
+                dropbox_path: dropboxpath,
+            })            
+        }).then(res => res.json())
+        .then(post => {
+            this.saveImageInfo(post, dropboxpath)
+            this.saveCopyInfo(post)
+        })
+    }
+
+    saveImageInfo = (post, dropboxpath) => {
+        fetch('http://localhost:3000/api/v1/images', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ 
+                    post_id: post.id,
+                    file_name: this.state.selectedFile.name,
+                    dropbox_path: `${dropboxpath}/${this.state.selectedFile.name}`
+                })            
+            })
+    }
+
+    saveCopyInfo = (post) => {
+        fetch('http://localhost:3000/api/v1/copies', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ 
+                    post_id: post.id,
+                    text: this.state.postCopy
+                })            
+            })
     }
     
-
     handleSubmit = (e) => {
         e.preventDefault();
         let dropbox_path = this.props.projectSelected.attributes.dropbox_path
@@ -105,7 +117,6 @@ class ViewPostDetails extends React.Component {
     }
 
     
-
     render() {
 
 
