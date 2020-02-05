@@ -32,6 +32,18 @@ class ViewPostDetails extends React.Component {
         })
     }
 
+    setInitialState() {
+        this.setState({
+            postCopy: '', 
+            liveDate: '',
+            description: '',
+            postName: '', 
+            fileSelected: false, 
+            selectedFile: null,
+            image: null
+        })
+    }
+
     componentDidMount() {
         if (!!this.props.postSelected) {
             this.setState({
@@ -42,17 +54,18 @@ class ViewPostDetails extends React.Component {
                 postName: this.props.postSelected.attributes.name, 
                 selectedFile: this.props.postSelected.attributes.images.length > 0 ? this.props.postSelected.attributes.images[0].dropbox_path : ""
             })
+            if (this.props.postSelected.attributes.images.length > 0) {
+                return dbx.filesDownload({  
+                            path: this.props.postSelected.attributes.images[0].dropbox_path,
+                        }).then(response => 
+                        this.setState ({
+                                image: URL.createObjectURL(response.fileBlob),
+                        }))
+            } else (this.setState ({
+                image: "",
+            }))
         }
-        if (this.props.postSelected.attributes.images.length > 0) {
-            return dbx.filesDownload({  
-                        path: this.props.postSelected.attributes.images[0].dropbox_path,
-                    }).then(response => 
-                    this.setState ({
-                            image: URL.createObjectURL(response.fileBlob),
-                    }))
-        } else (this.setState ({
-            image: "",
-    }))
+        
 
     }
 
@@ -114,7 +127,7 @@ class ViewPostDetails extends React.Component {
                     post_id: post.id,
                     text: this.state.postCopy
                 })            
-            })
+            }).then()
     }
     
     handleSubmit = (e) => {
@@ -126,7 +139,7 @@ class ViewPostDetails extends React.Component {
                 let dropboxpath = response.path_lower
                     this.uploadImageToDropbox(dropboxpath)
                     this.savePostInfo(dropboxpath)
-            })    
+            })
     }
 
     
@@ -138,14 +151,12 @@ class ViewPostDetails extends React.Component {
                 <img height="300" width="300" src={this.state.image} alt={this.state.name}/> 
                 <form onSubmit={this.handleSubmit}>
                     
-                        
-                        { !!this.props.postSelected 
-                            ? <h3>{this.props.postSelected.attributes.name}</h3>
-                            : <label>
-                                 Post Name: <input type="text" name="postName" value={this.state.postName} onChange={this.handleChange} />
-                              </label>
-                        }
-                    
+                    { !!this.props.postSelected 
+                        ? <h3>{this.props.postSelected.attributes.name}</h3>
+                        : <label>
+                            Post Name: <input type="text" name="postName" value={this.state.postName} onChange={this.handleChange} />
+                          </label>
+                    }
                         <br></br>
                     <label>
                         Post Copy: <input type="text" name="postCopy" value={this.state.postCopy} onChange={this.handleChange} />
