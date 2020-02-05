@@ -5,12 +5,8 @@ import ViewPostDetails from '../components/ViewPostDetails';
 import PostCardContainer from './PostCardContainer'
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import {
-    BrowserRouter as Router,
-    Link,
-  } from "react-router-dom";
 
-class MainContainer extends React.Component {
+class EditContainer extends React.Component {
 
     state = {
         previewSelected: false,
@@ -28,8 +24,6 @@ class MainContainer extends React.Component {
             previewSelected: true
         })
     }
-
-  
  
     render() {
         return(
@@ -40,10 +34,7 @@ class MainContainer extends React.Component {
                 <Container component="main" maxWidth="sm" >
                     <Grid container>
                         <Grid item >
-                                {this.props.location.pathname.length > 1
-                                    ? <ViewPostDetails />
-                                    : ""
-                                }
+                                <ViewPostDetails />    
                         </Grid>
                         <Grid item>
                             {this.state.previewSelected 
@@ -52,7 +43,11 @@ class MainContainer extends React.Component {
                             }                   
                         </Grid>
                     </Grid>
-                </Container>           
+                </Container>
+
+               
+
+                           
                 
             </div>
         )
@@ -65,7 +60,8 @@ const mapStateToProps = (state) => {
         viewPostDetails: state.viewPostDetails,
         projectSelected: state.projectSelected,
         postSelected: state.postSelected
+
     }
 }
 
-export default connect(mapStateToProps, null ) (MainContainer)
+export default connect(mapStateToProps, null ) (EditContainer)

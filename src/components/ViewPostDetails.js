@@ -1,6 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import Dropbox from 'dropbox'
+import {
+    BrowserRouter as Router,
+    Link,
+  } from "react-router-dom";
 
 
 const dbx = new Dropbox.Dropbox({ 
@@ -37,7 +41,7 @@ class ViewPostDetails extends React.Component {
                 postCopy: this.props.postSelected.attributes.copies.length > 0 ? this.props.postSelected.attributes.copies[0].text : "", 
                 liveDate: this.props.postSelected.attributes.live_date,
                 description: this.props.postSelected.attributes.description,
-                fileName: this.props.postSelected.attributes.description, 
+                fileName: this.props.postSelected.attributes.fileName, 
                 postName: this.props.postSelected.attributes.name, 
                 selectedFile: this.props.postSelected.attributes.images.length > 0 ? this.props.postSelected.attributes.images[0].dropbox_path : ""
             })
@@ -116,9 +120,25 @@ class ViewPostDetails extends React.Component {
             })    
     }
 
+    // renderProfileInfo = (selectedPost) => {
+    //     return(
+    //         <div>
+    //             <h1>{selectedProfile.name}</h1>
+    //             <h5>Username: {selectedProfile.username}</h5>
+    //         </div>
+    //     )
+    // }
+
+
+        // console.log('profile page props :', this.props)
+
+        
+
+           
+
+
     
     render() {
-
 
         return(
             <div>
@@ -152,8 +172,7 @@ class ViewPostDetails extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        projectSelected: state.projectSelected,
-        postSelected: state.postSelected
+        allPosts: state.allPosts 
     }
 }
 

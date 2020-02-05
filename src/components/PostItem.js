@@ -5,6 +5,10 @@ import Stepper from './Stepper'
 import { showAddPostForm, handleEditPost } from '../actionCreators'
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+import {
+    BrowserRouter as Router,
+    Link,
+  } from "react-router-dom";
 
 
 
@@ -20,6 +24,8 @@ class PostItem extends React.Component {
         thumbnail: null,
         allFolders: []
     }
+
+
 
 
     componentDidMount() {
@@ -64,7 +70,8 @@ class PostItem extends React.Component {
                     </Grid>
                 </Grid>
                 </Container>
-                <button onClick={() => this.props.handleEditPost(this.props.post)} >Edit Post</button>
+                {/* <Link to={`/${this.props.post.id}`}>Edit Post</Link> */}
+                <button onClick={() => this.selectPost(this.props.post.id)} >Edit Post</button>
                 <button onClick={() => this.handleDeletePost(this.props.post)} >Delete Post</button>
                 <br></br>
 
