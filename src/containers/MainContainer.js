@@ -31,19 +31,20 @@ class MainContainer extends React.Component {
                 <h2 onClick={this.handleListClick}>List</h2>
                 <h2 onClick={this.handlePreviewClick}>Preview</h2>
 
-                <Container component="main" maxWidth="sm" >
+                <Container component="main" maxWidth="md" >
                     <Grid container>
-                        <Grid item >
-                                {this.props.viewPostDetails
-                                    ? <ViewPostDetails />
-                                    : ""
-                                }
-                        </Grid>
+                        
                         <Grid item>
                             {this.state.previewSelected 
                                 ? <PostCardContainer />
                                 : <ProjectContainer />
                             }                   
+                        </Grid>
+                        <Grid item >
+                                {this.props.viewPostDetails
+                                    ? <ViewPostDetails />
+                                    : ""
+                                }
                         </Grid>
                     </Grid>
                 </Container>

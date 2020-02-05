@@ -15,7 +15,8 @@ class ViewPostDetails extends React.Component {
         description: '',
         fileName: '', 
         postName: '', 
-        selectedFile: null, 
+        selectedFile: null,
+        fileSelected: false, 
         image: null
     }
 
@@ -42,7 +43,19 @@ class ViewPostDetails extends React.Component {
                 selectedFile: this.props.postSelected.attributes.images.length > 0 ? this.props.postSelected.attributes.images[0].dropbox_path : ""
             })
         }
+        if (this.props.postSelected.attributes.images.length > 0) {
+            return dbx.filesDownload({  
+                        path: this.props.postSelected.attributes.images[0].dropbox_path,
+                    }).then(response => 
+                    this.setState ({
+                            image: URL.createObjectURL(response.fileBlob),
+                    }))
+        } else (this.setState ({
+            image: "",
+    }))
+
     }
+
 
     uploadImageToDropbox = (dropboxpath) => {
         dbx.filesUpload({
@@ -122,11 +135,17 @@ class ViewPostDetails extends React.Component {
 
         return(
             <div>
-                <img/> 
+                <img height="300" width="300" src={this.state.image} alt={this.state.name}/> 
                 <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Post Name: <input type="text" name="postName" value={this.state.postName} onChange={this.handleChange} />
-                    </label>
+                    
+                        
+                        { !!this.props.postSelected 
+                            ? <h3>{this.props.postSelected.attributes.name}</h3>
+                            : <label>
+                                 Post Name: <input type="text" name="postName" value={this.state.postName} onChange={this.handleChange} />
+                              </label>
+                        }
+                    
                         <br></br>
                     <label>
                         Post Copy: <input type="text" name="postCopy" value={this.state.postCopy} onChange={this.handleChange} />
