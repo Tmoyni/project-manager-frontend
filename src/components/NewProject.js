@@ -1,16 +1,15 @@
 import React from 'react';
 import Dropbox from 'dropbox'
+import { closeNewProjectForm } from '../actionCreators'
+import { connect } from 'react-redux'
+
+
 
 const dbx = new Dropbox.Dropbox({ 
     accessToken: process.env.REACT_APP_API_KEY,
     fetch: fetch
   });
 
-const initialState = {
-        projectName: '', 
-        dueDate: '',
-        folderName: ''
-}
 
 class NewProject extends React.Component {
 
@@ -44,12 +43,17 @@ class NewProject extends React.Component {
                         name: this.state.projectName,
                         due_date: this.state.dueDate,
                         dropbox_path: dropboxpath
-                    })            
-                }).then(res => (console.log(res)))     
-
+                    })         
+                }).then(this.setState({
+                    projectName: '', 
+                    dueDate: '',
+                    folderName: '',
+                    path_lower: ''
+                })).then(this.props.closeNewProjectForm)
             })
             .catch(function(error) {
-            console.log(error);
+            console.log(error)
+            
         })
     }
     
@@ -64,15 +68,15 @@ class NewProject extends React.Component {
 
                 <form onSubmit={this.handleSubmit}>
                     <label>
-                        Project Name: <input type="text" name="projectName" value={this.state.value} onChange={this.handleChange} />
+                        Project Name: <input type="text" name="projectName" value={this.state.projectName} onChange={this.handleChange} />
                     </label>
                     <br></br>
                     <label>
-                        Due Date: <input type="text" name="dueDate" value={this.state.value} onChange={this.handleChange} />
+                        Due Date: <input type="text" name="dueDate" value={this.state.dueDate} onChange={this.handleChange} />
                     </label>
                     <br></br>
                     <label>
-                        Folder Name: <input type="text" name="folderName" value={this.state.value} onChange={this.handleChange} />
+                        Folder Name: <input type="text" name="folderName" value={this.state.folderName} onChange={this.handleChange} />
                     </label>
                     <br></br>
                     <input type="submit" value="Submit" />
@@ -84,4 +88,12 @@ class NewProject extends React.Component {
 
 }
 
-export default NewProject
+
+const mapStateToProps = (state) => {
+    return {
+        projectSelected: state.projectSelected,
+        postSelected: state.postSelected
+    }
+}
+
+export default connect(mapStateToProps, {closeNewProjectForm} ) (NewProject)

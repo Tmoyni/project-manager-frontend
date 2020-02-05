@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import Dropbox from 'dropbox'
 import Stepper from './Stepper'
-import { showAddPostForm, handleEditPost } from '../actionCreators'
+import { showAddPostForm, handleViewPost } from '../actionCreators'
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
@@ -64,7 +64,7 @@ class PostItem extends React.Component {
                     </Grid>
                 </Grid>
                 </Container>
-                <button onClick={() => this.props.handleEditPost(this.props.post)} >Edit Post</button>
+                <button onClick={() => this.props.handleViewPost(this.props.post)} >View Post</button>
                 <button onClick={() => this.handleDeletePost(this.props.post)} >Delete Post</button>
                 <br></br>
 
@@ -80,4 +80,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {showAddPostForm, handleEditPost} ) (PostItem)
+export default connect(mapStateToProps, {showAddPostForm, handleViewPost} ) (PostItem)

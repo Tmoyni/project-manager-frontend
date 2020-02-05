@@ -60,8 +60,8 @@ class PostCard extends React.Component {
                 : "No Text Yet" }
 
               </Typography>
-              <button>Edit</button>
-              <button>Approve</button>
+              {/* <button>Edit</button>
+              <button>Approve</button> */}
               <button onClick={() => this.props.handleLargePreview(this.props.post)}>Large Preview</button>
 
             </CardContent>
