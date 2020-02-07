@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom'
 
 
 
-const drawerWidth = 240;
+const drawerWidth = 150;
 
 const useStyles = makeStyles(theme => ({
   root: {

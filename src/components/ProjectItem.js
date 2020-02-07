@@ -7,7 +7,7 @@ import Icon from '@material-ui/core/Icon';
 import Typography from '@material-ui/core/Typography';
 import Dropbox from 'dropbox'
 import ViewPostDetails from './ViewPostDetails'
-import { showAddPostForm } from '../actionCreators'
+import { handleNewPost } from '../actionCreators'
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
@@ -67,9 +67,9 @@ class ProjectItem extends React.Component {
                             <h5>   Due: {this.props.project.attributes.due_date}   </h5>
 
                         </Grid>
-                        <Grid item>
+                        {/* <Grid item>
                             <button>Edit Project</button>
-                        </Grid>
+                        </Grid> */}
                         <Grid item>
                             <IconButton  onClick={() => this.handleDeleteItem(this.props.project)} aria-label="delete" >
                                 <DeleteIcon  fontSize="small" />
@@ -83,7 +83,7 @@ class ProjectItem extends React.Component {
                     ? <div>
                         {postsArray}
 
-                        <div onClick={() => this.props.showAddPostForm(this.props.project)}>
+                        <div onClick={() => this.props.handleNewPost(this.props.project)}>
                             <Icon fontSize="small" color="primary">add_circle</Icon>
                             <Typography variant="button" > Add Post </Typography>
                         </div>
@@ -108,4 +108,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {showAddPostForm} ) (ProjectItem)
+export default connect(mapStateToProps, {handleNewPost} ) (ProjectItem)
