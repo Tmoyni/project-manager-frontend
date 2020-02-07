@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import Dropbox from 'dropbox'
+import EditPostForm from './EditPostForm'
 
 
 const dbx = new Dropbox.Dropbox({ 
@@ -10,13 +11,20 @@ const dbx = new Dropbox.Dropbox({
 class ViewPostDetails extends React.Component {
 
     state = {
-        image: null
+        image: null,
+        editClicked: false
+    }
+
+    handleEditClick = () => {
+        console.log("clicking")
     }
 
     renderImage() {
-        if (this.props.postSelected.attributes.images.length > 0) {
+        let image = this.props.postSelected.attributes.images
+
+        if (image.length > 0) {
             return dbx.filesDownload({  
-                        path: this.props.postSelected.attributes.images[0].dropbox_path,
+                        path: image[image.length - 1].dropbox_path,
                     }).then(response => 
                     this.setState ({
                             image: URL.createObjectURL(response.fileBlob),
@@ -30,6 +38,8 @@ class ViewPostDetails extends React.Component {
         if (!!this.props.postSelected) {
             this.renderImage()
         }
+        let copy = this.props.postSelected.attributes.copies
+        let image = this.props.postSelected.attributes.images
 
         return(
             <div>
@@ -46,7 +56,7 @@ class ViewPostDetails extends React.Component {
                     }
 
                     { this.props.postSelected.attributes.copies.length > 0 
-                        ? <p>Copy: {this.props.postSelected.attributes.copies[0].text }</p>
+                        ? <p>Copy: {copy[copy.length - 1].text }</p>
                         : <p>Copy: no copy yet</p>
                     }    
 
@@ -59,7 +69,8 @@ class ViewPostDetails extends React.Component {
                         ? <p>Description: {this.props.postSelected.attributes.description }</p>
                         : <p>Description: None</p>
                     }  
-                <button>Edit</button>    
+                <button onClick={ () => this.handleEditClick() }>Edit</button> 
+                <EditPostForm post={this.props.postSelected}/>   
             </div>
         )
     }
@@ -67,7 +78,6 @@ class ViewPostDetails extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        projectSelected: state.projectSelected,
         postSelected: state.postSelected
     }
 }

@@ -8,6 +8,7 @@ import PostForm from '../components/PostForm';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import DatePicker from '../components/DatePicker'
+import Calendar from '../components/Calendar'
 
 class MainContainer extends React.Component {
 
@@ -32,7 +33,6 @@ class MainContainer extends React.Component {
         console.log(this.props)
         return(
             <div>
-                <DatePicker/>
 
                 <h2 onClick={this.handleListClick}>List</h2>
                 <h2 onClick={this.handlePreviewClick}>Preview</h2>
