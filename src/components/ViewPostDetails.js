@@ -27,7 +27,6 @@ class ViewPostDetails extends React.Component {
     }
     
     render() {
-        console.log(this.props)
         if (!!this.props.postSelected) {
             this.renderImage()
         }
@@ -46,7 +45,7 @@ class ViewPostDetails extends React.Component {
                         : <p>Status: Unknown</p>
                     }
 
-                    { !!this.props.postSelected 
+                    { this.props.postSelected.attributes.copies.length > 0 
                         ? <p>Copy: {this.props.postSelected.attributes.copies[0].text }</p>
                         : <p>Copy: no copy yet</p>
                     }    

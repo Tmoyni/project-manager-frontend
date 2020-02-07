@@ -7,6 +7,7 @@ import PostDetailContainer from './PostDetailContainer'
 import PostForm from '../components/PostForm';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+import DatePicker from '../components/DatePicker'
 
 class MainContainer extends React.Component {
 
@@ -31,11 +32,14 @@ class MainContainer extends React.Component {
         console.log(this.props)
         return(
             <div>
+                <DatePicker/>
+
                 <h2 onClick={this.handleListClick}>List</h2>
                 <h2 onClick={this.handlePreviewClick}>Preview</h2>
 
                 <Container component="main" maxWidth="md" >
                     <Grid container>
+
                         
                         <Grid item>
                             {this.state.previewSelected 

@@ -10,7 +10,6 @@ class PostDetailContainer extends React.Component {
     render() {
         return(
             <div>
-                <ViewPostDetails />
                 <div>
                 { !!this.props.viewPostSelected
                 ? <ViewPostDetails />
