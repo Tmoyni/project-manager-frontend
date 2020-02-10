@@ -23,6 +23,10 @@ import PostCardContainer from './PostCardContainer'
 import SignUp from '../components/SignUp'
 import SignIn from '../components/SignIn'
 import Box from '@material-ui/core/Box';
+import { connect } from 'react-redux'
+import { handleViewClick } from '../actionCreators'
+
+
 
 
 const drawerWidth = 240;
@@ -69,6 +73,10 @@ function NavContainer(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  const handleViewClick = (e) => {
+    console.log(e.target.id)
+  }
+
   const drawer = (
     <div>
       <div className={classes.toolbar} />
@@ -108,10 +116,10 @@ function NavContainer(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="button" noWrap>
-            <Box>
+            <Box id="preview" onClick={(e) => props.handleViewClick(e.target.id)}>
                 Preview
             </Box>
-            <Box>
+            <Box id="list" onClick={(e) => props.handleViewClick(e.target.id)}>
                 List
             </Box>
           </Typography>
@@ -161,12 +169,9 @@ function NavContainer(props) {
   );
 }
 
-// NavContainer.propTypes = {
-//   /**
-//    * Injected by the documentation to work in an iframe.
-//    * You won't need it on your project.
-//    */
-//   container: PropTypes.instanceOf(typeof Element === 'undefined' ? Object : Element),
-// };
+const mapStateToProps = (state) => {
+  return {
+  }
+}
 
-export default NavContainer;
+export default connect(mapStateToProps, { handleViewClick } ) (NavContainer)

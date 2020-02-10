@@ -26,50 +26,44 @@ class MainContainer extends React.Component {
             previewSelected: true
         })
     }
+
+    renderViewSwitch = (view) => {
+        switch(view) {
+          case 'preview':
+            return <PostCardContainer />;
+          case 'list':
+            return <ProjectContainer />;
+          default:
+            return <ProjectContainer />;
+        }
+      }
  
     render() {
-        console.log(this.props)
         return(
             <div>
+                <Grid container>
 
-                <h2 onClick={this.handleListClick}>List</h2>
-                <h2 onClick={this.handlePreviewClick}>Preview</h2>
-
-                    <Grid container>
-
-                        
-                        <Grid item>
-                            {this.state.previewSelected 
-                                ? <PostCardContainer />
-                                : <ProjectContainer />
-                            }                   
-                        </Grid>
-
-                        <Grid item >
-                            <div>
-                                {!!this.props.viewPostSelected
-                                        ? <PostDetailContainer />
-                                        : ""
-                                }
-
-                            </div>
-                            <div>
-                                {!!this.props.newPost
-                                    ? <PostForm/>
-                                    : ""
-                                }
-                            </div>
-
-                          
-                        </Grid>
-                       
-                        
+                    <Grid item>
+                        {this.renderViewSwitch(this.props.viewType)}
                     </Grid>
 
-               
+                    <Grid item >
+                        <div>
+                            {!!this.props.viewPostSelected
+                                ? <PostDetailContainer />
+                                : ""
+                            }
 
-                           
-                
+                        </div>
+                        <div>
+                            {!!this.props.newPost
+                                ? <PostForm/>
+                                : ""
+                            }
+                        </div>
+                    </Grid>
+                    
+                </Grid>
             </div>
         )
     }
@@ -82,8 +76,8 @@ const mapStateToProps = (state) => {
         projectSelected: state.projectSelected,
         postSelected: state.postSelected, 
         viewPostSelected: state.viewPostSelected,
-        newPost: state.newPost
-
+        newPost: state.newPost,
+        viewType: state.viewType
     }
 }
 

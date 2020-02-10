@@ -13,19 +13,18 @@ export default function Stepper(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
 
-
-    const renderSwitch = (status) => {
-      switch(status) {
-        case 'not started':
-          return 0;
-        case 'In Progress':
-          return 2;
-        case 'Approved':
-          return 4;
-        default:
-          return '0';
-      }
+  const renderSwitch = (status) => {
+    switch(status) {
+      case 'not started':
+        return 0;
+      case 'In Progress':
+        return 2;
+      case 'Approved':
+        return 4;
+      default:
+        return '0';
     }
+  }
 
   return (
     <MobileStepper
