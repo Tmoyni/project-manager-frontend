@@ -8,6 +8,7 @@ export const VIEW_POST = "VIEW_POST"
 export const NEW_POST = "NEW_POST"
 export const NEW_FORM_CANCEL = "NEW_FORM_CANCEL"
 export const CLOSE_NEW_PROJECT_FORM = "CLOSE_NEW_PROJECT_FORM"
+export const CLOSE_NEW_POST_FORM = "CLOSE_NEW_POST_FORM"
 
 
 export const fetchProjects = () => {
@@ -47,6 +48,9 @@ export const handleNewPost = (project) => ({type: NEW_POST, payload: {project} }
 export const handleNewFormCancel = () => ({type: NEW_FORM_CANCEL})
 
 export const closeNewProjectForm = () => ({type: CLOSE_NEW_PROJECT_FORM})
+
+export const closeNewPostForm = () => ({type: CLOSE_NEW_POST_FORM})
+
 
 
 

@@ -8,7 +8,8 @@ import {
     VIEW_POST, 
     NEW_POST, 
     NEW_FORM_CANCEL, 
-    CLOSE_NEW_PROJECT_FORM
+    CLOSE_NEW_PROJECT_FORM,
+    CLOSE_NEW_POST_FORM
 } from './actionCreators'
 
 let defaultState = {
@@ -47,7 +48,9 @@ let reducer = (prevState=defaultState, action) => {
             return { ...prevState, newPost: false}
         case CLOSE_NEW_PROJECT_FORM:
             return { ...prevState, showNewProject: false}
-
+        case CLOSE_NEW_POST_FORM:
+            return { ...prevState, newPost: false}
+        
         default:
             return { ...prevState }
     }

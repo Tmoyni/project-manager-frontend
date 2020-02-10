@@ -38,8 +38,6 @@ const mapStateToProps = (state) => {
         postSelected: state.postSelected,
         newPost: state.newPost, 
         viewPostDetails: state.viewPostDetails
-
-
     }
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import Dropbox from 'dropbox'
-import { handleNewFormCancel } from '../actionCreators'
+import { handleNewFormCancel, fetchPosts, closeNewPostForm } from '../actionCreators'
 
 
 
@@ -23,12 +23,14 @@ class PostForm extends React.Component {
         image: null
     }
 
+    //for typing changes
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
         })
     }
    
+    //to upload image selected from desktop
     fileSelectedHandler = (e) => {
         this.setState({
             selectedFile: e.target.files[0]
@@ -47,32 +49,7 @@ class PostForm extends React.Component {
         })
     }
 
-    componentDidMount() {
-        if (!!this.props.postSelected) {
-            this.setState({
-                postCopy: this.props.postSelected.attributes.copies.length > 0 ? this.props.postSelected.attributes.copies[0].text : "", 
-                liveDate: this.props.postSelected.attributes.live_date,
-                description: this.props.postSelected.attributes.description,
-                fileName: this.props.postSelected.attributes.description, 
-                postName: this.props.postSelected.attributes.name, 
-                selectedFile: this.props.postSelected.attributes.images.length > 0 ? this.props.postSelected.attributes.images[0].dropbox_path : ""
-            })
-            if (this.props.postSelected.attributes.images.length > 0) {
-                return dbx.filesDownload({  
-                            path: this.props.postSelected.attributes.images[0].dropbox_path,
-                        }).then(response => 
-                        this.setState ({
-                                image: URL.createObjectURL(response.fileBlob),
-                        }))
-            } else (this.setState ({
-                image: "",
-            }))
-        }
-        
-
-    }
-
-
+    //upload selected image to dropbox
     uploadImageToDropbox = (dropboxpath) => {
         dbx.filesUpload({
             path: `${dropboxpath}/${this.state.selectedFile.name}`, 
@@ -82,6 +59,7 @@ class PostForm extends React.Component {
         })
     }
 
+    //save info for the post and the new dropbox path to database
     savePostInfo = (dropboxpath) => { 
         fetch('http://localhost:3000/api/v1/posts', {
             method: 'POST',
@@ -104,6 +82,7 @@ class PostForm extends React.Component {
         })
     }
 
+    //save image data and dropbox path to database
     saveImageInfo = (post, dropboxpath) => {
         fetch('http://localhost:3000/api/v1/images', {
                 method: 'POST',
@@ -119,6 +98,7 @@ class PostForm extends React.Component {
             })
     }
 
+    //save copy text info to datebase
     saveCopyInfo = (post) => {
         fetch('http://localhost:3000/api/v1/copies', {
                 method: 'POST',
@@ -130,16 +110,23 @@ class PostForm extends React.Component {
                     post_id: post.id,
                     text: this.state.postCopy
                 })            
-            }).then()
+            }).then((response) => response.json())
+            .then((data) => {
+                console.log('Success:', data);
+                this.props.fetchPosts()
+                
+            }) 
+            .then(this.props.closeNewPostForm)
     }
     
+    //create dropbox path for the new post and then run helper methods to save the rest of the data
     handleSubmit = (e) => {
         e.preventDefault();
         let dropbox_path = this.props.projectSelected.attributes.dropbox_path
-        dbx.filesCreateFolder({path: `${dropbox_path}`+`/${this.state.postName}`})
+        dbx.filesCreateFolder({path: `${dropbox_path}`+`/${this.state.postName}`}) //create dropox path inside project folder
             .then( response => {
                 console.log(response)
-                let dropboxpath = response.path_lower
+                let dropboxpath = response.path_lower //grab dropbox path from response
                     this.uploadImageToDropbox(dropboxpath)
                     this.savePostInfo(dropboxpath)
             })
@@ -191,4 +178,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {handleNewFormCancel} ) (PostForm)
+export default connect(mapStateToProps, {handleNewFormCancel, fetchPosts, closeNewPostForm} ) (PostForm)

@@ -1,6 +1,6 @@
 import React from 'react';
 import Dropbox from 'dropbox'
-import { closeNewProjectForm } from '../actionCreators'
+import { closeNewProjectForm, fetchProjects } from '../actionCreators'
 import { connect } from 'react-redux'
 import TextField from '@material-ui/core/TextField'
 import 'date-fns'
@@ -25,21 +25,9 @@ function NewProject(props) {
         setSelectedDate(date);
       };
 
-    // state = {
-    //     projectName: '', 
-    //     dueDate: '',
-    //     path_lower: ''
-    // }
-    // [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'))
-
-
     const handleProjectName = (e) => {
         setprojectName(e.target.value)
     }
-    console.log(projectName)
-
-    
-
     
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -57,13 +45,20 @@ function NewProject(props) {
                         name: projectName,
                         due_date: selectedDate,
                         dropbox_path: dropboxpath
-                    })         
-                }).then(props.closeNewProjectForm)
+                    })           
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log('Success:', data);
+                    props.fetchProjects()
+                }) 
+                .then(props.closeNewProjectForm)
             })
             .catch(function(error) {
             console.log(error)
+        }).then(
             
-        })
+            console.log("fetching"))
     }
         return(
             <div>
@@ -73,9 +68,6 @@ function NewProject(props) {
                 <form onSubmit={handleSubmit} >
                     <TextField id="standard-basic" label="Project Name" name="projectName" value={projectName} onChange={handleProjectName}/>
                     <br></br>
-                    {/* <label>
-                        Due Date: <input type="text" name="dueDate" value={this.state.dueDate} onChange={this.handleChange} />
-                    </label> */}
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <KeyboardDatePicker
                             disableToolbar
@@ -91,7 +83,6 @@ function NewProject(props) {
                             }}
                         />
                     </MuiPickersUtilsProvider>
-
                     <br></br>                    
                     <input type="submit" value="Submit" />
                 </form>
@@ -109,4 +100,11 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {closeNewProjectForm} ) (NewProject)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        closeNewProjectForm: () => dispatch(closeNewProjectForm()),
+        fetchProjects: () => dispatch(fetchProjects())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps ) (NewProject)

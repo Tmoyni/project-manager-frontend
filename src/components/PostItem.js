@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import Dropbox from 'dropbox'
 import Stepper from './Stepper'
-import { showAddPostForm, handleViewPost } from '../actionCreators'
+import { showAddPostForm, handleViewPost, fetchPosts } from '../actionCreators'
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
@@ -41,8 +41,10 @@ class PostItem extends React.Component {
         }).then(res => console.log(res))
         .then(
             dbx.filesDelete({path: `${post.attributes.dropbox_path}`})
-            .then( response => {console.log(response)}
-             )
+            .then( response => {
+                console.log('deleted post:', response);
+                this.props.fetchPosts() 
+            }) 
         )
     }
 
@@ -84,4 +86,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {showAddPostForm, handleViewPost} ) (PostItem)
+export default connect(mapStateToProps, {showAddPostForm, handleViewPost, fetchPosts} ) (PostItem)
