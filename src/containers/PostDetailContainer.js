@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
 class PostDetailContainer extends React.Component {
     render() {
         return(
-            <div>
+            <div anchor="right">
                 <div>
                 { !!this.props.viewPostSelected
                 ? <ViewPostDetails />

@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import Dropbox from 'dropbox'
 import { fetchProjects, fetchPosts } from '../actionCreators'
 import SinglePostPreview from '../components/SinglePostPreview'
+import Grid from '@material-ui/core/Grid';
+
 
 
 const dbx = new Dropbox.Dropbox({ 
@@ -40,14 +42,14 @@ class PostCardContainer extends React.Component {
           })
 
         return(
-            <div>
+            <Grid container spacing={3}>
+            
                
                 <br></br>
 
                 {this.state.previewSelected ? <SinglePostPreview postToPreview={this.state.postToPreview} /> : ""}
-                <h1>All Posts Preview</h1>
                 {postsArray}
-            </div>
+            </Grid>
         )
     }
 }

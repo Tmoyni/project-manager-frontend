@@ -6,8 +6,6 @@ import PostCardContainer from './PostCardContainer'
 import PostDetailContainer from './PostDetailContainer'
 import PostForm from '../components/PostForm';
 import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
-import DatePicker from '../components/DatePicker'
 import Calendar from '../components/Calendar'
 
 class MainContainer extends React.Component {
@@ -37,7 +35,6 @@ class MainContainer extends React.Component {
                 <h2 onClick={this.handleListClick}>List</h2>
                 <h2 onClick={this.handlePreviewClick}>Preview</h2>
 
-                <Container component="main" maxWidth="md" >
                     <Grid container>
 
                         
@@ -51,7 +48,7 @@ class MainContainer extends React.Component {
                         <Grid item >
                             <div>
                                 {!!this.props.viewPostSelected
-                                        ? <PostDetailContainer/>
+                                        ? <PostDetailContainer />
                                         : ""
                                 }
 
@@ -68,7 +65,6 @@ class MainContainer extends React.Component {
                        
                         
                     </Grid>
-                </Container>
 
                
 

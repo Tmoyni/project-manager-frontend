@@ -51,19 +51,23 @@ class PostItem extends React.Component {
 
         return(
             <div>
-                
-   
-                {/* <Stepper />             */}
-                <Container component="main" maxWidth="xs">
+                   
+                <Container >
                 <Grid container>
                     <Grid item >
                         <img height="42" width="42" src={this.state.thumbnail} alt={this.props.post.attributes.name}/> 
                     </Grid>
-                    <Grid item>
-                        <p display="inline-block">{this.props.post.attributes.name} - {this.props.post.attributes.status}</p>
-                    </Grid>
+                        <Grid item>
+                            <p display="inline-block">{this.props.post.attributes.name} </p>
+                        </Grid >
+                        <Stepper post={this.props.post}/>
+                        <p display="inline-block">{this.props.post.attributes.status}</p>
+
+
+
                 </Grid>
                 </Container>
+
                 <button onClick={() => this.props.handleViewPost(this.props.post)} >View Post</button>
                 <button onClick={() => this.handleDeletePost(this.props.post)} >Delete Post</button>
                 <br></br>
