@@ -2,11 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux'
 import Dropbox from 'dropbox'
 import Stepper from './Stepper'
-import { showAddPostForm, handleViewPost } from '../actionCreators'
+import { showAddPostForm, handleViewPost, fetchPosts } from '../actionCreators'
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-
-
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Button from '@material-ui/core/Button';
+import { Box } from '@material-ui/core';
+import ListItem from '@material-ui/core/ListItem';
+import Divider from '@material-ui/core/Divider';
 
 
 const dbx = new Dropbox.Dropbox({ 
@@ -41,8 +45,10 @@ class PostItem extends React.Component {
         }).then(res => console.log(res))
         .then(
             dbx.filesDelete({path: `${post.attributes.dropbox_path}`})
-            .then( response => {console.log(response)}
-             )
+            .then( response => {
+                console.log('deleted post:', response);
+                this.props.fetchPosts() 
+            }) 
         )
     }
 
@@ -51,24 +57,29 @@ class PostItem extends React.Component {
 
         return(
             <div>
-                
-   
-                {/* <Stepper />             */}
-                <Container component="main" maxWidth="xs">
-                <Grid container>
-                    <Grid item >
+                <ListItem >
+                    <Grid container>
                         <img height="42" width="42" src={this.state.thumbnail} alt={this.props.post.attributes.name}/> 
-                    </Grid>
-                    <Grid item>
-                        <p display="inline-block">{this.props.post.attributes.name} - {this.props.post.attributes.status}</p>
-                    </Grid>
-                </Grid>
-                </Container>
-                <button onClick={() => this.props.handleViewPost(this.props.post)} >View Post</button>
-                <button onClick={() => this.handleDeletePost(this.props.post)} >Delete Post</button>
-                <br></br>
+                        <p display="inline">{this.props.post.attributes.name} </p>
+                        {!!this.props.viewPostSelected 
+                            ? ""
+                            : <Stepper post={this.props.post}/> }
+                        {!!this.props.viewPostSelected 
+                            ? ""
+                            : <p display="inline">{this.props.post.attributes.status}</p> }    
+                        
+                        <Box>
+                            <Button variant="contained" size="small" color="primary"  onClick={() => this.props.handleViewPost(this.props.post)} >View Post</Button>
+                        </Box>
+                        <IconButton  right="0px" onClick={() => this.handleDeletePost(this.props.post)} aria-label="delete" >
+                            <DeleteIcon  fontSize="small" />
+                        </IconButton> 
 
-            </div>
+
+                    </Grid>
+                </ListItem>
+                <Divider />
+        </div>
         )
     }
 }
@@ -77,7 +88,8 @@ const mapStateToProps = (state) => {
     return {
         allPosts: state.allPosts,
         viewPostDetails: state.viewPostDetails, 
+        viewPostSelected: state.viewPostSelected
     }
 }
 
-export default connect(mapStateToProps, {showAddPostForm, handleViewPost} ) (PostItem)
+export default connect(mapStateToProps, {showAddPostForm, handleViewPost, fetchPosts} ) (PostItem)

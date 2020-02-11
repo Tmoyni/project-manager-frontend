@@ -149,10 +149,9 @@ class EditPostForm extends React.Component {
                         <br></br>
                     <input type="file" onChange={this.fileSelectedHandler}/>
                     <br></br>
-                    <button onClick={this.props.handleNewFormCancel}>Cancel</button>
                     <input type="submit" value="Submit" />
                 </form>
-
+                <button onClick={this.props.handleNewFormCancel}>Cancel</button>
             </div>
         )
     }

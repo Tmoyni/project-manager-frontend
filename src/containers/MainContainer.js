@@ -6,8 +6,6 @@ import PostCardContainer from './PostCardContainer'
 import PostDetailContainer from './PostDetailContainer'
 import PostForm from '../components/PostForm';
 import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
-import DatePicker from '../components/DatePicker'
 import Calendar from '../components/Calendar'
 
 class MainContainer extends React.Component {
@@ -28,53 +26,37 @@ class MainContainer extends React.Component {
             previewSelected: true
         })
     }
+
+    renderViewSwitch = (view) => {
+        switch(view) {
+          case 'preview':
+            return <PostCardContainer />;
+          case 'list':
+            return <ProjectContainer />;
+          default:
+            return <ProjectContainer />;
+        }
+    }
  
     render() {
-        console.log(this.props)
         return(
-            <div>
-
-                <h2 onClick={this.handleListClick}>List</h2>
-                <h2 onClick={this.handlePreviewClick}>Preview</h2>
-
-                <Container component="main" maxWidth="md" >
-                    <Grid container>
-
-                        
-                        <Grid item>
-                            {this.state.previewSelected 
-                                ? <PostCardContainer />
-                                : <ProjectContainer />
-                            }                   
-                        </Grid>
-
-                        <Grid item >
-                            <div>
-                                {!!this.props.viewPostSelected
-                                        ? <PostDetailContainer/>
-                                        : ""
-                                }
-
-                            </div>
-                            <div>
-                                {!!this.props.newPost
-                                    ? <PostForm/>
-                                    : ""
-                                }
-                            </div>
-
-                          
-                        </Grid>
-                       
-                        
-                    </Grid>
-                </Container>
-
-               
-
-                           
-                
-            </div>
+            <Grid container spacing={3}>
+                <Grid item xs={!!this.props.viewPostSelected ? 6 : 12}>
+                    {this.renderViewSwitch(this.props.viewType)}
+                </Grid>
+                    {!!this.props.viewPostSelected
+                        ?<Grid item xs={6}>
+                            <PostDetailContainer anchor='right' />
+                         </Grid>
+                        : ""
+                    }
+                <div>
+                    {!!this.props.newPost
+                        ? <PostForm/>
+                        : ""
+                    }
+                </div>
+            </Grid>
         )
     }
 }
@@ -86,8 +68,8 @@ const mapStateToProps = (state) => {
         projectSelected: state.projectSelected,
         postSelected: state.postSelected, 
         viewPostSelected: state.viewPostSelected,
-        newPost: state.newPost
-
+        newPost: state.newPost,
+        viewType: state.viewType
     }
 }
 

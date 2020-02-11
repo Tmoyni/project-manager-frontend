@@ -6,10 +6,12 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Icon from '@material-ui/core/Icon';
 import Typography from '@material-ui/core/Typography';
 import Dropbox from 'dropbox'
-import ViewPostDetails from './ViewPostDetails'
-import { handleNewPost } from '../actionCreators'
+import { handleNewPost, fetchProjects } from '../actionCreators'
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
 
 
 
@@ -37,9 +39,15 @@ class ProjectItem extends React.Component {
         }).then(res => console.log(res))
         .then(
             dbx.filesDelete({path: `${project.attributes.dropbox_path}`})
-            .then( response => {console.log(response)}
-             )
+            .then((response) => {
+                console.log('deleted:', response);
+                this.props.fetchProjects() 
+            }) 
         )
+    }
+
+    formatDate = (date) => {
+        return date.toLocaleDateString("en-US")
     }
 
    
@@ -55,45 +63,33 @@ class ProjectItem extends React.Component {
         let postsArray = filteredPosts.map( post => {
             return ( <PostItem key={post.id} post={post} /> )
         })
+
         return(
 
             <div >
-                <Container component="main" maxWidth="sm">
-                    <Grid container>
-                        <Grid item >
-                            <h2 onClick={() => this.toggleShowPost()} > {this.props.project.attributes.name} </h2>
-                        </Grid>
-                        <Grid item>
-                            <h5>   Due: {this.props.project.attributes.due_date}   </h5>
 
-                        </Grid>
-                        {/* <Grid item>
-                            <button>Edit Project</button>
-                        </Grid> */}
-                        <Grid item>
-                            <IconButton  onClick={() => this.handleDeleteItem(this.props.project)} aria-label="delete" >
-                                <DeleteIcon  fontSize="small" />
-                            </IconButton>                    
-                        </Grid>
-                    </Grid>
-                </Container>
+                <Grid container >
+                    <CssBaseline />
+
+                    <h2 display="inline" margin="10px" onClick={() => this.toggleShowPost()} > {this.props.project.attributes.name} </h2>
+                    <h5 margin="10px" display="inline"> Due: {this.props.project.attributes.due_date} </h5>
+                    <IconButton  right="0px" onClick={() => this.handleDeleteItem(this.props.project)} aria-label="delete" >
+                        <DeleteIcon  fontSize="small" />
+                    </IconButton> 
+                </Grid>
+ 
                 
                 
                 {this.state.projectIsClicked 
                     ? <div>
                         {postsArray}
-
                         <div onClick={() => this.props.handleNewPost(this.props.project)}>
                             <Icon fontSize="small" color="primary">add_circle</Icon>
                             <Typography variant="button" > Add Post </Typography>
                         </div>
-
                     </div>
                     : ""
                 }
-
-                <br></br>
-
             </div>
         )
     }
@@ -108,4 +104,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {handleNewPost} ) (ProjectItem)
+export default connect(mapStateToProps, {handleNewPost, fetchProjects} ) (ProjectItem)

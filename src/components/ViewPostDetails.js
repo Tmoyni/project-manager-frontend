@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux'
 import Dropbox from 'dropbox'
 import EditPostForm from './EditPostForm'
+import Paper from '@material-ui/core/Paper';
+
 
 
 const dbx = new Dropbox.Dropbox({ 
@@ -41,8 +43,9 @@ class ViewPostDetails extends React.Component {
         let copy = this.props.postSelected.attributes.copies
         let image = this.props.postSelected.attributes.images
 
+
         return(
-            <div>
+            <div >
                 <img height="300" width="300" src={this.state.image} alt={this.state.name}/> 
                     
                     { !!this.props.postSelected 
