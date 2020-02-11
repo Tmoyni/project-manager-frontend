@@ -86,6 +86,7 @@ function NewProject(props) {
                     <br></br>                    
                     <input type="submit" value="Submit" />
                 </form>
+                <button onClick={props.closeNewProjectForm}>Cancel</button>
                 
             </div>
         )

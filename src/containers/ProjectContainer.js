@@ -1,44 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import ProjectItem from '../components/ProjectItem'
-import NewProject from '../components/NewProject'
-import { fetchProjects, fetchPosts, toggleShowNewProject } from '../actionCreators'
-import Button from '@material-ui/core/Button';
+import ListContainer from './ListContainer';
+import PostCardContainer from './PostCardContainer'
+
+
 
 
 class ProjectContainer extends React.Component {
 
-    
-    componentDidMount() {
-        this.props.fetchProjects();
-        this.props.fetchPosts()
+    renderViewSwitch = (view) => {
+        switch(view) {
+          case 'preview':
+            return <PostCardContainer />;
+          case 'list':
+            return <ListContainer />;
+          default:
+            return <ListContainer />;
+        }
     }
 
-
     render() {
-        let projectsArray = this.props.allProjects.map( project => {
-            return (
-              <ProjectItem key={project.id} project={project} posts={this.props.allPosts}/>
-            )
-          })
-
-
         return(
-            
             <div>
-
-                <h1>Projects</h1> 
-                <Button  onClick={this.props.toggleShowNewProject} variant="contained" color="primary">
-                    New Project
-                </Button>   
-                             
-                {this.props.showNewProject 
-                    ? <NewProject /> 
-                    : ""
-                }
-
-                {projectsArray}
-                <br></br>
+                {this.renderViewSwitch(this.props.viewType)}
             </div>
         )
     }
@@ -46,10 +30,10 @@ class ProjectContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        allProjects: state.allProjects,
-        allPosts: state.allPosts,
-        showNewProject: state.showNewProject
+
+        viewType: state.viewType
+
     }
 }
 
-export default connect(mapStateToProps, { fetchProjects, fetchPosts, toggleShowNewProject } ) (ProjectContainer)
+export default connect(mapStateToProps, null) (ProjectContainer)

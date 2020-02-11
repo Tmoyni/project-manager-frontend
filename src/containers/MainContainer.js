@@ -7,6 +7,7 @@ import PostDetailContainer from './PostDetailContainer'
 import PostForm from '../components/PostForm';
 import Grid from '@material-ui/core/Grid';
 import Calendar from '../components/Calendar'
+import ViewEditContainer from './ViewEditContainer'
 
 class MainContainer extends React.Component {
 
@@ -26,36 +27,19 @@ class MainContainer extends React.Component {
             previewSelected: true
         })
     }
-
-    renderViewSwitch = (view) => {
-        switch(view) {
-          case 'preview':
-            return <PostCardContainer />;
-          case 'list':
-            return <ProjectContainer />;
-          default:
-            return <ProjectContainer />;
-        }
-    }
  
     render() {
         return(
             <Grid container spacing={3}>
                 <Grid item xs={!!this.props.viewPostSelected ? 6 : 12}>
-                    {this.renderViewSwitch(this.props.viewType)}
+                    <ProjectContainer/>
                 </Grid>
                     {!!this.props.viewPostSelected
                         ?<Grid item xs={6}>
-                            <PostDetailContainer anchor='right' />
+                            <ViewEditContainer anchor='right' />
                          </Grid>
                         : ""
                     }
-                <div>
-                    {!!this.props.newPost
-                        ? <PostForm/>
-                        : ""
-                    }
-                </div>
             </Grid>
         )
     }
