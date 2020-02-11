@@ -5,8 +5,10 @@ import Stepper from './Stepper'
 import { showAddPostForm, handleViewPost, fetchPosts } from '../actionCreators'
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-
-
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Button from '@material-ui/core/Button';
+import { Box } from '@material-ui/core';
 
 
 const dbx = new Dropbox.Dropbox({ 
@@ -52,29 +54,28 @@ class PostItem extends React.Component {
     render() {
 
         return(
-            <div>
-                   
+  
                 <Container >
-                <Grid container>
-                    <Grid item >
+                    <Grid container>
                         <img height="42" width="42" src={this.state.thumbnail} alt={this.props.post.attributes.name}/> 
+                        <p display="inline">{this.props.post.attributes.name} </p>
+                        {!!this.props.viewPostSelected 
+                            ? ""
+                            : <Stepper post={this.props.post}/> }
+                        {!!this.props.viewPostSelected 
+                            ? ""
+                            : <p display="inline">{this.props.post.attributes.status}</p> }    
+                        
+                        <Box>
+                            <Button variant="contained" size="small" color="primary"  onClick={() => this.props.handleViewPost(this.props.post)} >View Post</Button>
+                        </Box>
+                        <IconButton  right="0px" onClick={() => this.handleDeletePost(this.props.post)} aria-label="delete" >
+                            <DeleteIcon  fontSize="small" />
+                        </IconButton> 
+
+
                     </Grid>
-                        <Grid item>
-                            <p display="inline-block">{this.props.post.attributes.name} </p>
-                        </Grid >
-                        <Stepper post={this.props.post}/>
-                        <p display="inline-block">{this.props.post.attributes.status}</p>
-
-
-
-                </Grid>
                 </Container>
-
-                <button onClick={() => this.props.handleViewPost(this.props.post)} >View Post</button>
-                <button onClick={() => this.handleDeletePost(this.props.post)} >Delete Post</button>
-                <br></br>
-
-            </div>
         )
     }
 }
@@ -83,6 +84,7 @@ const mapStateToProps = (state) => {
     return {
         allPosts: state.allPosts,
         viewPostDetails: state.viewPostDetails, 
+        viewPostSelected: state.viewPostSelected
     }
 }
 

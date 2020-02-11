@@ -4,14 +4,14 @@ import MobileStepper from '@material-ui/core/MobileStepper';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 600,
+    maxWidth: 2000,
     flexGrow: 1,
   },
 });
 
 export default function Stepper(props) {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
+  // const [activeStep, setActiveStep] = React.useState(0);
 
   const renderSwitch = (status) => {
     switch(status) {

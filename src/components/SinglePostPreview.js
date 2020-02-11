@@ -18,9 +18,9 @@ const useStyles = makeStyles(theme => ({
     const handleClose = () => {
       setOpen(false);
     };
-    const handleToggle = () => {
-      setOpen(open);
-    };
+    // const handleToggle = () => {
+    //   setOpen(open);
+    // };
 
     return (
       <div>
@@ -31,18 +31,3 @@ const useStyles = makeStyles(theme => ({
     );
   }
 
-// class SinglePostPreview extends React.Component {
-//     render() {
-//         console.log(this.props)
-//         return(
-//             <div>
-
-//                 <h1>preview for {t}</h1>
-//                 <PostCard/>
-
-//             </div>
-//         )
-//     }
-// }
-
-// export default SinglePostPreview

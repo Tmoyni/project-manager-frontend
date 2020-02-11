@@ -40,31 +40,23 @@ class MainContainer extends React.Component {
  
     render() {
         return(
-            <div>
-                <Grid container>
-
-                    <Grid item>
-                        {this.renderViewSwitch(this.props.viewType)}
-                    </Grid>
-
-                    <Grid item >
-                        <div>
-                            {!!this.props.viewPostSelected
-                                ? <PostDetailContainer />
-                                : ""
-                            }
-
-                        </div>
-                        <div>
-                            {!!this.props.newPost
-                                ? <PostForm/>
-                                : ""
-                            }
-                        </div>
-                    </Grid>
-                    
+            <Grid container spacing={3}>
+                <Grid item xs={!!this.props.viewPostSelected ? 6 : 12}>
+                    {this.renderViewSwitch(this.props.viewType)}
                 </Grid>
-            </div>
+                    {!!this.props.viewPostSelected
+                        ?<Grid item xs={6}>
+                            <PostDetailContainer anchor='right' />
+                         </Grid>
+                        : ""
+                    }
+                <div>
+                    {!!this.props.newPost
+                        ? <PostForm/>
+                        : ""
+                    }
+                </div>
+            </Grid>
         )
     }
 }

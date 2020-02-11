@@ -43,8 +43,9 @@ class ViewPostDetails extends React.Component {
         let copy = this.props.postSelected.attributes.copies
         let image = this.props.postSelected.attributes.images
 
+
         return(
-            <div  anchor="right">
+            <div >
                 <img height="300" width="300" src={this.state.image} alt={this.state.name}/> 
                     
                     { !!this.props.postSelected 

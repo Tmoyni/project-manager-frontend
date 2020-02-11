@@ -1,21 +1,19 @@
 import React from 'react';
 import ViewPostDetails from '../components/ViewPostDetails';
 import PostForm from '../components/PostForm';
-import { connect } from 'react-redux'
-
-
-
+import { connect } from 'react-redux';
+import Paper from '@material-ui/core/Paper';
 
 class PostDetailContainer extends React.Component {
     render() {
         return(
-            <div anchor="right">
-                <div>
+            <div >
+                <Paper>
                 { !!this.props.viewPostSelected
                 ? <ViewPostDetails />
                 : <PostForm />   
                 }   
-                </div>
+                </Paper>
 
                 <div>
                     { !!this.props.newPost 

@@ -9,6 +9,9 @@ import Dropbox from 'dropbox'
 import { handleNewPost, fetchProjects } from '../actionCreators'
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
 
 
 
@@ -64,38 +67,29 @@ class ProjectItem extends React.Component {
         return(
 
             <div >
-                <Container component="main" >
-                    <Grid container>
-                        <Grid item >
-                            <h2 onClick={() => this.toggleShowPost()} > {this.props.project.attributes.name} </h2>
-                        </Grid>
-                        <Grid item>
-                            <h5> Due: {this.props.project.attributes.due_date} </h5>
-                        </Grid>
-                        <Grid item>
-                            <IconButton  onClick={() => this.handleDeleteItem(this.props.project)} aria-label="delete" >
-                                <DeleteIcon  fontSize="small" />
-                            </IconButton>                    
-                        </Grid>
-                    </Grid>
-                </Container>
+
+                <Grid container >
+                    <CssBaseline />
+
+                    <h2 display="inline" margin="10px" onClick={() => this.toggleShowPost()} > {this.props.project.attributes.name} </h2>
+                    <h5 margin="10px" display="inline"> Due: {this.props.project.attributes.due_date} </h5>
+                    <IconButton  right="0px" onClick={() => this.handleDeleteItem(this.props.project)} aria-label="delete" >
+                        <DeleteIcon  fontSize="small" />
+                    </IconButton> 
+                </Grid>
+ 
                 
                 
                 {this.state.projectIsClicked 
                     ? <div>
                         {postsArray}
-
                         <div onClick={() => this.props.handleNewPost(this.props.project)}>
                             <Icon fontSize="small" color="primary">add_circle</Icon>
                             <Typography variant="button" > Add Post </Typography>
                         </div>
-
                     </div>
                     : ""
                 }
-
-                <br></br>
-
             </div>
         )
     }

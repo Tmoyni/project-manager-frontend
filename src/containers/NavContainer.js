@@ -4,7 +4,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -17,12 +16,13 @@ import MainContainer from './MainContainer'
 import { Route } from 'react-router-dom'
 import UserProfile from '../components/UserProfile'
 import PostCardContainer from './PostCardContainer'
-import SignUp from '../components/SignUp'
 import SignIn from '../components/SignIn'
 import Box from '@material-ui/core/Box';
 import { connect } from 'react-redux'
 import { handleViewClick } from '../actionCreators'
-
+import FolderOutlinedIcon from '@material-ui/icons/FolderOutlined';
+import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
+import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 
 
 
@@ -70,24 +70,20 @@ function NavContainer(props) {
     setMobileOpen(!mobileOpen);
   };
 
-  const handleViewClick = (e) => {
-    console.log(e.target.id)
-  }
-
   const drawer = (
     <div>
       <div className={classes.toolbar} />
       <List>
-          <ListItem button key='Inbox'>
-            <ListItemIcon><InboxIcon /></ListItemIcon>
+          <ListItem button key='projects'>
+            <ListItemIcon><FolderOutlinedIcon /></ListItemIcon>
             <ListItemText primary='Projects' />
           </ListItem>
-          <ListItem button key='Inbox'>
-            <ListItemIcon><InboxIcon /></ListItemIcon>
+          <ListItem button key='profile'>
+            <ListItemIcon><PersonOutlineOutlinedIcon /></ListItemIcon>
             <ListItemText primary='Profile' />
           </ListItem>
-          <ListItem button key='Inbox'>
-            <ListItemIcon><InboxIcon /></ListItemIcon>
+          <ListItem button key='logOut'>
+            <ListItemIcon> <ExitToAppOutlinedIcon /> </ListItemIcon>
             <ListItemText primary='Log Out' />
           </ListItem>
       </List>
@@ -110,17 +106,17 @@ function NavContainer(props) {
           <MenuIcon />
           </IconButton>
           <Typography variant="button" noWrap>
-            <Box id="preview" onClick={(e) => props.handleViewClick(e.target.id)}>
-                Preview
-            </Box>
-            <Box id="list" onClick={(e) => props.handleViewClick(e.target.id)}>
+            <Box margin="10px" display="inline" id="list" onClick={(e) => props.handleViewClick(e.target.id)}>
                 List
+            </Box>
+            
+            <Box margin="10px" display="inline" id="preview" onClick={(e) => props.handleViewClick(e.target.id)}>
+                 Preview
             </Box>
           </Typography>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Hidden smUp implementation="css">
           <Drawer
             container={container}
