@@ -1,13 +1,11 @@
 import React from 'react';
 import PostCard from '../components/PostCard'
 import { connect } from 'react-redux'
-import Dropbox from 'dropbox'
 import { fetchProjects, fetchPosts } from '../actionCreators'
 import SinglePostPreview from '../components/SinglePostPreview'
 import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 

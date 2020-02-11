@@ -37,17 +37,6 @@ class PostForm extends React.Component {
         })
     }
 
-    setInitialState() {
-        this.setState({
-            postCopy: '', 
-            liveDate: '',
-            description: '',
-            postName: '', 
-            fileSelected: false, 
-            selectedFile: null,
-            image: null
-        })
-    }
 
     //upload selected image to dropbox
     uploadImageToDropbox = (dropboxpath) => {
@@ -135,18 +124,14 @@ class PostForm extends React.Component {
     
     render() {
 
-
         return(
             <div>
-                <img height="300" width="300" src={this.state.image} alt={this.state.name}/> 
                 <form onSubmit={this.handleSubmit}>
                     
-                    { !!this.props.postSelected 
-                        ? <h3>{this.props.postSelected.attributes.name}</h3>
-                        : <label>
-                            Post Name: <input type="text" name="postName" value={this.state.postName} onChange={this.handleChange} />
-                          </label>
-                    }
+                    <h3>New Post</h3>
+                    <label>
+                        Post Name: <input type="text" name="postName" value={this.state.postName} onChange={this.handleChange} />
+                    </label>
                         <br></br>
                     <label>
                         Post Copy: <input type="text" name="postCopy" value={this.state.postCopy} onChange={this.handleChange} />
@@ -162,9 +147,9 @@ class PostForm extends React.Component {
                         <br></br>
                     <input type="file" onChange={this.fileSelectedHandler}/>
                     <br></br>
-                    <button onClick={this.props.handleNewFormCancel}>Cancel</button>
                     <input type="submit" value="Submit" />
                 </form>
+                <button onClick={this.props.handleNewFormCancel}>Cancel</button>
 
             </div>
         )
@@ -174,7 +159,6 @@ class PostForm extends React.Component {
 const mapStateToProps = (state) => {
     return {
         projectSelected: state.projectSelected,
-        postSelected: state.postSelected
     }
 }
 

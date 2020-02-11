@@ -1,8 +1,6 @@
 export const FETCH_PROJECTS = "FETCH_PROJECTS"
 export const FETCH_POSTS = "FETCH_POSTS"
-export const VIEW_PROFILE = "VIEW_PROFILE"
-export const VIEW_PROJECTS = "VIEW_PROJECTS"
-export const TOGGLE_SHOW_NEW_PROJECT = "TOGGLE_SHOW_NEW_PROJECT"
+export const SHOW_NEW_PROJECT = "SHOW_NEW_PROJECT"
 export const SHOW_ADD_POST_FORM = "SHOW_ADD_POST_FORM"
 export const VIEW_POST = "VIEW_POST"
 export const NEW_POST = "NEW_POST"
@@ -34,11 +32,9 @@ export const fetchPosts = () => {
 }
 
 
-export const viewProfile = () => ({type: VIEW_PROFILE})
 
-export const viewProjects = () => ({type: VIEW_PROJECTS})
 
-export const toggleShowNewProject = () => ({type: TOGGLE_SHOW_NEW_PROJECT})
+export const showNewProject = () => ({type: SHOW_NEW_PROJECT})
 
 export const showAddPostForm = (project) => ({type: SHOW_ADD_POST_FORM, payload: {project} })
 
