@@ -68,16 +68,17 @@ class PostCardContainer extends React.Component {
 
         return(
             <div>
-                <FormControl width="400px" >
+                <FormControl >
                     <InputLabel>Choose Project</InputLabel>
                     <Select
                         value={this.state.projectSelected}
                         onChange={this.handleProjectSelect}
                         >
-                        <MenuItem value={"all"}>All</MenuItem>
+                        <MenuItem value={"all"}>All Projects</MenuItem>
                         {projectArray}
                     </Select>
                 </FormControl>
+            <br></br>
             <br></br>
             <Grid container spacing={3}>
                 {this.state.previewSelected ? <SinglePostPreview postToPreview={this.state.postToPreview} /> : ""}

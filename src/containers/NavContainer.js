@@ -23,6 +23,7 @@ import { handleViewClick } from '../actionCreators'
 import FolderOutlinedIcon from '@material-ui/icons/FolderOutlined';
 import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
+import { Link } from 'react-router-dom' 
 
 
 
@@ -74,18 +75,24 @@ function NavContainer(props) {
     <div>
       <div className={classes.toolbar} />
       <List>
-          <ListItem button key='projects'>
-            <ListItemIcon><FolderOutlinedIcon /></ListItemIcon>
-            <ListItemText primary='Projects' />
-          </ListItem>
-          <ListItem button key='profile'>
-            <ListItemIcon><PersonOutlineOutlinedIcon /></ListItemIcon>
-            <ListItemText primary='Profile' />
-          </ListItem>
-          <ListItem button key='logOut'>
-            <ListItemIcon> <ExitToAppOutlinedIcon /> </ListItemIcon>
-            <ListItemText primary='Log Out' />
-          </ListItem>
+          <Link to="/">
+            <ListItem button key='projects'>
+              <ListItemIcon><FolderOutlinedIcon /></ListItemIcon>
+              <ListItemText primary='Projects' />
+            </ListItem>
+          </Link>
+          <Link to="/profile">
+            <ListItem button key='profile'>
+              <ListItemIcon><PersonOutlineOutlinedIcon /></ListItemIcon>
+              <ListItemText primary='Profile' />
+            </ListItem>
+          </Link>
+          <Link to="/signin">
+            <ListItem button key='logOut'>
+              <ListItemIcon> <ExitToAppOutlinedIcon /> </ListItemIcon>
+              <ListItemText primary='Log Out' />
+            </ListItem>
+          </Link>
       </List>
       
     </div>
@@ -148,10 +155,8 @@ function NavContainer(props) {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Route exact path="/" render={(routerProps) => <MainContainer {...routerProps}/> } />
-        <Route exact path="/signin" render={(routerProps) => <SignIn {...routerProps}/> } />
         <Route exact path="/profile" render={(routerProps) => <UserProfile {...routerProps}/> } />
-        <Route exact path="/preview" render={(routerProps) => <PostCardContainer {...routerProps}/> } />
+        <Route exact path="/" render={(routerProps) => <MainContainer {...routerProps}/> } />
       </main>
     </div>
   );

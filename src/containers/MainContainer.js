@@ -36,7 +36,7 @@ class MainContainer extends React.Component {
           default:
             return <ProjectContainer />;
         }
-      }
+    }
  
     render() {
         return(

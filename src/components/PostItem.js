@@ -9,6 +9,8 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
 import { Box } from '@material-ui/core';
+import ListItem from '@material-ui/core/ListItem';
+import Divider from '@material-ui/core/Divider';
 
 
 const dbx = new Dropbox.Dropbox({ 
@@ -54,8 +56,8 @@ class PostItem extends React.Component {
     render() {
 
         return(
-  
-                <Container >
+            <div>
+                <ListItem >
                     <Grid container>
                         <img height="42" width="42" src={this.state.thumbnail} alt={this.props.post.attributes.name}/> 
                         <p display="inline">{this.props.post.attributes.name} </p>
@@ -75,7 +77,9 @@ class PostItem extends React.Component {
 
 
                     </Grid>
-                </Container>
+                </ListItem>
+                <Divider />
+        </div>
         )
     }
 }
