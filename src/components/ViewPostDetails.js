@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux'
 import Dropbox from 'dropbox'
 import EditPostForm from './EditPostForm'
-import Paper from '@material-ui/core/Paper';
 
 
 
@@ -26,52 +25,56 @@ class ViewPostDetails extends React.Component {
 
         if (image.length > 0) {
             return dbx.filesDownload({  
-                        path: image[image.length - 1].dropbox_path,
-                    }).then(response => 
-                    this.setState ({
-                            image: URL.createObjectURL(response.fileBlob),
-                    }))
-        } else (this.setState ({
-            image: "",
-        }))
+                path: image[0].dropbox_path,
+            }).then(response => 
+            this.setState ({
+                    image: URL.createObjectURL(response.fileBlob),
+            }))
+
+        } 
     }
+
+    // renderImage() {
+    //     let image = this.props.postSelected.attributes.images
+    //     if (image.length > 0) {
+    //         return dbx.filesDownload({  
+    //             path: image[image.length - 1].dropbox_path,
+    //         })
+    //         .then(response => 
+    //             this.setState({
+    //                 image: URL.createObjectURL(response.fileBlob)
+    //         }))
+    //     } return "https://748073e22e8db794416a-cc51ef6b37841580002827d4d94d19b6.ssl.cf3.rackcdn.com/not-found.png"
+    // }
     
     render() {
-        if (!!this.props.postSelected) {
+        if (this.props.postSelected.attributes.images.length > 0) {
             this.renderImage()
         }
-        let copy = this.props.postSelected.attributes.copies
-        let image = this.props.postSelected.attributes.images
 
+        let copy = this.props.postSelected.attributes.copies
 
         return(
             <div >
-                <img height="300" width="300" src={this.state.image} alt={this.state.name}/> 
+
+                { this.props.postSelected.attributes.images.length > 0
+                    ? <img width="300px" src={this.state.image} alt={this.state.name}/>
+                    : <img width="300px" src="https://748073e22e8db794416a-cc51ef6b37841580002827d4d94d19b6.ssl.cf3.rackcdn.com/not-found.png" alt={this.state.name}/>
+                }                
+
+
+
+                <h3>{this.props.postSelected.attributes.name}</h3>
+                <h5>Status: {this.props.postSelected.attributes.status}</h5>
+
+                { this.props.postSelected.attributes.copies.length > 0 
+                    ? <p>Copy: {copy[copy.length - 1].text }</p>
+                    : <p>Copy: no copy yet</p>
+                }    
+
+                <p>Live Date: {this.props.postSelected.attributes.live_date }</p>
+                <p>Description: {this.props.postSelected.attributes.description }</p>
                     
-                    { !!this.props.postSelected 
-                        ? <h3>{this.props.postSelected.attributes.name}</h3>
-                        : <p>Name: untitled</p>
-                    }
-
-                    { !!this.props.postSelected 
-                        ? <h5>Status: {this.props.postSelected.attributes.status}</h5>
-                        : <p>Status: Unknown</p>
-                    }
-
-                    { this.props.postSelected.attributes.copies.length > 0 
-                        ? <p>Copy: {copy[copy.length - 1].text }</p>
-                        : <p>Copy: no copy yet</p>
-                    }    
-
-                    { !!this.props.postSelected 
-                        ? <p>Live Date: {this.props.postSelected.attributes.live_date }</p>
-                        : <p>Live Date: None</p>
-                    }  
-
-                    { !!this.props.postSelected 
-                        ? <p>Description: {this.props.postSelected.attributes.description }</p>
-                        : <p>Description: None</p>
-                    }  
                 <button onClick={ () => this.handleEditClick() }>Edit</button> 
                 <EditPostForm post={this.props.postSelected}/>   
             </div>

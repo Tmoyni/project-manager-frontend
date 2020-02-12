@@ -3,7 +3,6 @@ import ViewPostDetails from '../components/ViewPostDetails';
 import PostForm from '../components/PostForm';
 import { connect } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
-import EditPostForm from '../components/EditPostForm';
 import NewProject from '../components/NewProject';
 
 class ViewEditContainer extends React.Component {

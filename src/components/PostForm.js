@@ -2,8 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux'
 import Dropbox from 'dropbox'
 import { handleNewFormCancel, fetchPosts, closeNewPostForm } from '../actionCreators'
-
-
+import CardContent from '@material-ui/core/CardContent';
+import Card from '@material-ui/core/Card';
+import TextField from '@material-ui/core/TextField';
+import 'date-fns'
+import DateFnsUtils from '@date-io/date-fns';
+import {
+    MuiPickersUtilsProvider,
+    KeyboardDatePicker,
+  } from '@material-ui/pickers'
+  import Button from '@material-ui/core/Button';
 
 const dbx = new Dropbox.Dropbox({ 
     accessToken: process.env.REACT_APP_API_KEY,
@@ -14,7 +22,7 @@ class PostForm extends React.Component {
 
     state = {
         postCopy: '', 
-        liveDate: '',
+        liveDate: '2020-02-14T21:11:54',
         description: '',
         fileName: '', 
         postName: '', 
@@ -33,10 +41,16 @@ class PostForm extends React.Component {
     //to upload image selected from desktop
     fileSelectedHandler = (e) => {
         this.setState({
-            selectedFile: e.target.files[0]
+            selectedFile: e.target.files[0], 
+            fileSelected: true
         })
     }
 
+    handleDateChange = (date) => {
+        this.setState({
+            liveDate: date
+        })
+    };
 
     //upload selected image to dropbox
     uploadImageToDropbox = (dropboxpath) => {
@@ -66,8 +80,10 @@ class PostForm extends React.Component {
             })            
         }).then(res => res.json())
         .then(post => {
-            this.saveImageInfo(post, dropboxpath)
             this.saveCopyInfo(post)
+            if (!!this.state.fileSelected) {
+                this.saveImageInfo(post, dropboxpath)
+            }
         })
     }
 
@@ -116,42 +132,59 @@ class PostForm extends React.Component {
             .then( response => {
                 console.log(response)
                 let dropboxpath = response.path_lower //grab dropbox path from response
-                    this.uploadImageToDropbox(dropboxpath)
-                    this.savePostInfo(dropboxpath)
+                    this.savePostInfo(dropboxpath)    
+                    if (!!this.state.fileSelected) {
+                        this.uploadImageToDropbox(dropboxpath)
+                    }
             })
     }
 
     
     render() {
-
+        console.log(this.state)
         return(
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    
-                    <h3>New Post</h3>
-                    <label>
-                        Post Name: <input type="text" name="postName" value={this.state.postName} onChange={this.handleChange} />
-                    </label>
-                        <br></br>
-                    <label>
-                        Post Copy: <input type="text" name="postCopy" value={this.state.postCopy} onChange={this.handleChange} />
-                    </label>
-                        <br></br>
-                    <label>
-                        Live Date: <input type="text" name="liveDate" value={this.state.liveDate} onChange={this.handleChange} />
-                    </label>
-                        <br></br>
-                    <label>
-                        Description: <input type="text" name="description" value={this.state.description} onChange={this.handleChange} />
-                    </label>
-                        <br></br>
-                    <input type="file" onChange={this.fileSelectedHandler}/>
-                    <br></br>
-                    <input type="submit" value="Submit" />
-                </form>
-                <button onClick={this.props.handleNewFormCancel}>Cancel</button>
+            <Card maxWidth="sm" align='center'>
+                <CardContent  variant="outlined" >
+                    <h2>Create A New Post</h2>
 
-            </div>
+                    <form onSubmit={this.handleSubmit}>
+                        
+                        <TextField id="standard-basic" label="Post Name" type="text" name="postName" value={this.state.postName} onChange={this.handleChange}  />
+                        <br></br>
+                        <TextField id="standard-textarea" multiline label="Post Copy" type="text" name="postCopy" value={this.state.postCopy} onChange={this.handleChange} />
+                        <br></br>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                            <KeyboardDatePicker
+                                disableToolbar
+                                variant="inline"
+                                format="MM/dd/yyyy"
+                                margin="normal"
+                                id="date-picker-inline"
+                                label="Post Live Date"
+                                value={this.state.liveDate}
+                                onChange={this.handleDateChange}
+                                KeyboardButtonProps={{
+                                    'aria-label': 'change date',
+                                }}
+                            />
+                        </MuiPickersUtilsProvider>
+                            <br></br>
+                        <TextField id="standard-textarea" multiline label="Description" type="text" name="description" value={this.state.description} onChange={this.handleChange} />
+                        <br></br>   
+                        <br></br>   
+
+                        <input type="file" onChange={this.fileSelectedHandler}/>
+                        <br></br>
+                        <br></br>
+
+                        <Button type="submit" value="Submit" variant="contained" color="primary" >
+                            Submit
+                        </Button> 
+                    </form>
+                    <br></br>
+                    <Button variant="contained" onClick={this.props.handleNewFormCancel}>Cancel</Button>
+                </CardContent>
+            </Card>
         )
     }
 }

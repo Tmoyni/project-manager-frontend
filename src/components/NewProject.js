@@ -9,6 +9,13 @@ import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
   } from '@material-ui/pickers'
+import Button from '@material-ui/core/Button';
+import CardContent from '@material-ui/core/CardContent';
+import Card from '@material-ui/core/Card';
+
+
+
+
 
 
 function NewProject(props) {
@@ -61,9 +68,10 @@ function NewProject(props) {
             console.log("fetching"))
     }
         return(
-            <div>
+            <Card maxWidth="sm" align='center'>
+                <CardContent  variant="outlined" >
 
-                <h4>Create A New Project</h4>
+                <h2>Create A New Project</h2>
 
                 <form onSubmit={handleSubmit} >
                     <TextField id="standard-basic" label="Project Name" name="projectName" value={projectName} onChange={handleProjectName}/>
@@ -83,12 +91,19 @@ function NewProject(props) {
                             }}
                         />
                     </MuiPickersUtilsProvider>
-                    <br></br>                    
-                    <input type="submit" value="Submit" />
+                    <br></br>
+                    <br></br>
+
+                    <Button type="submit" value="Submit" variant="contained" color="primary">
+                        Submit
+                    </Button> 
                 </form>
-                <button onClick={props.closeNewProjectForm}>Cancel</button>
-                
-            </div>
+                <br></br>
+
+                <Button variant="contained" onClick={props.closeNewProjectForm}>Cancel</Button>
+
+                </CardContent>
+            </Card>
         )
 }
 

@@ -4,13 +4,10 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import Dropbox from 'dropbox';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 
 
 
@@ -58,7 +55,7 @@ class PostCard extends React.Component {
             />
               
               
-            <img width="100%"  src={this.state.image}/>
+            <img width="100%"  src={this.state.image} alt={this.props.post.attributes.name}/>
                        
             <CardContent align="left" textAlign="left">
               

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import ProjectItem from '../components/ProjectItem'
-import NewProject from '../components/NewProject'
 import { fetchProjects, fetchPosts, showNewProject } from '../actionCreators'
 import Button from '@material-ui/core/Button';
 
@@ -25,10 +24,16 @@ class ListContainer extends React.Component {
         return(
             
             <div>
-                <h1>Projects</h1> 
-                <Button  onClick={this.props.showNewProject} variant="contained" color="primary">
-                    New Project
-                </Button>               
+                <div>
+                    <h1>Projects</h1> 
+                    <Button  onClick={this.props.showNewProject} variant="contained" color="primary">
+                        New Project
+                    </Button>  
+
+                </div>
+                <br></br>     
+                <br></br>             
+        
                 {projectsArray}
                 <br></br>
             </div>

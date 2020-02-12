@@ -3,7 +3,6 @@ import './App.css';
 import NavContainer from './containers/NavContainer'
 import SignIn from './components/SignIn'
 import { Route } from 'react-router-dom'
-import UserProfile from './components/UserProfile'
 
 
 

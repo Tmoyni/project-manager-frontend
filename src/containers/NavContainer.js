@@ -15,8 +15,6 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import MainContainer from './MainContainer'
 import { Route } from 'react-router-dom'
 import UserProfile from '../components/UserProfile'
-import PostCardContainer from './PostCardContainer'
-import SignIn from '../components/SignIn'
 import Box from '@material-ui/core/Box';
 import { connect } from 'react-redux'
 import { handleViewClick } from '../actionCreators'
@@ -89,7 +87,9 @@ function NavContainer(props) {
           </Link>
           <Link to="/signin">
             <ListItem button key='logOut'>
-              <ListItemIcon> <ExitToAppOutlinedIcon /> </ListItemIcon>
+              <ListItemIcon> 
+                <ExitToAppOutlinedIcon /> 
+              </ListItemIcon>
               <ListItemText primary='Log Out' />
             </ListItem>
           </Link>
