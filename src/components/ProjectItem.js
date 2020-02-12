@@ -8,8 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import Dropbox from 'dropbox'
 import { handleNewPost, fetchProjects } from '../actionCreators'
 import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 
@@ -67,15 +65,20 @@ class ProjectItem extends React.Component {
         return(
 
             <div >
+                <CssBaseline/>
+                <Grid container spacing={2}>
+                    <Grid item xs={4}>
+                        <Typography variant="h6" onClick={() => this.toggleShowPost()} > {this.props.project.attributes.name} </Typography>
+                    </Grid>
+                    <Grid item>
+                        <Typography color="textSecondary"  > Due: {this.props.project.attributes.due_date} </Typography>
+                    </Grid>
+                    <Grid item>
+                        <IconButton onClick={() => this.handleDeleteItem(this.props.project)} aria-label="delete" >
+                            <DeleteIcon fontSize="small" />
+                        </IconButton> 
+                    </Grid>
 
-                <Grid container >
-                    <CssBaseline />
-
-                    <h2 display="inline" margin="10px" onClick={() => this.toggleShowPost()} > {this.props.project.attributes.name} </h2>
-                    <h5 margin="10px" display="inline"> Due: {this.props.project.attributes.due_date} </h5>
-                    <IconButton  right="0px" onClick={() => this.handleDeleteItem(this.props.project)} aria-label="delete" >
-                        <DeleteIcon  fontSize="small" />
-                    </IconButton> 
                 </Grid>
  
                 
@@ -83,13 +86,17 @@ class ProjectItem extends React.Component {
                 {this.state.projectIsClicked 
                     ? <div>
                         {postsArray}
+                        <br></br>
                         <div onClick={() => this.props.handleNewPost(this.props.project)}>
-                            <Icon fontSize="small" color="primary">add_circle</Icon>
+                            <Icon  color="primary">add_circle</Icon>
                             <Typography variant="button" > Add Post </Typography>
                         </div>
                     </div>
                     : ""
                 }
+                <br></br>
+                <br></br>
+
             </div>
         )
     }

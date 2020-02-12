@@ -4,11 +4,9 @@ import Dropbox from 'dropbox'
 import Stepper from './Stepper'
 import { showAddPostForm, handleViewPost, fetchPosts } from '../actionCreators'
 import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
-import { Box } from '@material-ui/core';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
 
@@ -35,8 +33,8 @@ class PostItem extends React.Component {
                             thumbnail: URL.createObjectURL(response.fileBlob),
                     }))
         } else (this.setState ({
-            thumbnail: "",
-    }))
+            thumbnail: "https://748073e22e8db794416a-cc51ef6b37841580002827d4d94d19b6.ssl.cf3.rackcdn.com/not-found.png",
+        }))
     }
 
     handleDeletePost = (post) => {
@@ -58,23 +56,33 @@ class PostItem extends React.Component {
         return(
             <div>
                 <ListItem >
-                    <Grid container>
-                        <img height="42" width="42" src={this.state.thumbnail} alt={this.props.post.attributes.name}/> 
-                        <p display="inline">{this.props.post.attributes.name} </p>
-                        {!!this.props.viewPostSelected 
-                            ? ""
-                            : <Stepper post={this.props.post}/> }
-                        {!!this.props.viewPostSelected 
-                            ? ""
-                            : <p display="inline">{this.props.post.attributes.status}</p> }    
-                        
-                        <Box>
-                            <Button variant="contained" size="small" color="primary"  onClick={() => this.props.handleViewPost(this.props.post)} >View Post</Button>
-                        </Box>
-                        <IconButton  right="0px" onClick={() => this.handleDeletePost(this.props.post)} aria-label="delete" >
-                            <DeleteIcon  fontSize="small" />
-                        </IconButton> 
+                    <Grid container spacing={2}>
+                        <Grid item >
+                            <img   height="42" width="42" src={this.state.thumbnail} alt={this.props.post.attributes.name}/> 
+                        </Grid>
 
+                        <Grid item xs>
+                            <p  display="inline">{this.props.post.attributes.name} </p>
+                        </Grid>
+
+                        {!!this.props.viewPostSelected 
+                            ? ""
+                            : <Grid item xs>
+                                <Grid item >
+                                    <Stepper post={this.props.post}/> 
+                                </Grid>
+                                <Grid item >
+                                    <p>{this.props.post.attributes.status}</p>    
+                                </Grid>
+                            </Grid>
+                        }
+
+                        <Grid item >
+                            <Button variant="contained" size="small" color="primary"  onClick={() => this.props.handleViewPost(this.props.post)} >View Post</Button>
+                            <IconButton right="0px" onClick={() => this.handleDeletePost(this.props.post)} aria-label="delete" >
+                                <DeleteIcon  fontSize="small" />
+                            </IconButton> 
+                        </Grid>
 
                     </Grid>
                 </ListItem>

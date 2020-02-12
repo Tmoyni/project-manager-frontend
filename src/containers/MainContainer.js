@@ -1,12 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import ProjectContainer from './ProjectContainer'
-import ViewPostDetails from '../components/ViewPostDetails';
-import PostCardContainer from './PostCardContainer'
-import PostDetailContainer from './PostDetailContainer'
-import PostForm from '../components/PostForm';
 import Grid from '@material-ui/core/Grid';
-import Calendar from '../components/Calendar'
 import ViewEditContainer from './ViewEditContainer'
 
 class MainContainer extends React.Component {

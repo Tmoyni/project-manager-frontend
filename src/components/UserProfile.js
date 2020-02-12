@@ -1,5 +1,4 @@
 import React from 'react';
-import Navigation from '../components/Navigation'
 
 class UserProfile extends React.Component {
     render() {
