@@ -57,23 +57,21 @@ class PostCard extends React.Component {
               
             <img width="100%"  src={this.state.image} alt={this.props.post.attributes.name}/>
                        
-            <CardContent align="left" textAlign="left">
+            <CardContent align="left" >
               
-              <Typography variant="body2"  align="left" textAlign="left" display="inline">
-                <Box fontWeight="fontWeightBold" textAlign="left" m={1} >
+              <Typography variant="body2"  align="left" display="inline">
+                <Box fontWeight="fontWeightBold"  m={1} >
                   {Math.floor(Math.random() * 2000) + 1000} likes
                 </Box>
-                <Box fontWeight="fontWeightBold" textAlign="left" m={1} display="inline">
+                <Box fontWeight="fontWeightBold"  m={1} display="inline">
                   audible
                 </Box>
-                <Box textAlign="left" fontWeight="Regular" m={1} display="inline">
+                <Box  fontWeight="Regular" m={1} display="inline">
                   {this.props.post.attributes.copies.length > 0 
                   ? this.props.post.attributes.copies[0].text
                   : "No Text Yet" }
                 </Box>
               </Typography>
-              {/* <button>Edit</button>
-              <button>Approve</button> */}
               <br></br>
               <button onClick={() => this.props.handleLargePreview(this.props.post)}>Large Preview</button>
 

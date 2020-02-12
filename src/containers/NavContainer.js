@@ -24,7 +24,6 @@ import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import { Link } from 'react-router-dom' 
 
 
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({

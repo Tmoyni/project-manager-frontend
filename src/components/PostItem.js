@@ -26,8 +26,9 @@ class PostItem extends React.Component {
 
     componentDidMount() {
         if (this.props.post.attributes.images.length > 0) {
+            let image = this.props.post.attributes.images
             return dbx.filesDownload({  
-                        path: this.props.post.attributes.images[0].dropbox_path,
+                        path: image[image.length -1].dropbox_path,
                     }).then(response => 
                     this.setState ({
                             thumbnail: URL.createObjectURL(response.fileBlob),

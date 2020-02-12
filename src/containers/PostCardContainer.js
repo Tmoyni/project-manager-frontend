@@ -47,9 +47,6 @@ class PostCardContainer extends React.Component {
             })  
         } 
         
-
-        console.log(filteredPostArray)
-
         let allPostsArray = this.props.allPosts.map( post => {
             return (
               <PostCard key={post.id} post={post} handleLargePreview={this.handleLargePreview}/>
@@ -58,11 +55,11 @@ class PostCardContainer extends React.Component {
 
         let projectArray = this.props.allProjects.map ( project => {
             return (
-                <MenuItem value={project.id}>{project.attributes.name}</MenuItem>
+                <MenuItem value={project.id} key={project.id}>
+                    {project.attributes.name}
+                </MenuItem>
             )
         })
-
-        console.log(filteredPosts)
 
         return(
             <div>
@@ -79,7 +76,9 @@ class PostCardContainer extends React.Component {
             <br></br>
             <br></br>
             <Grid container spacing={3}>
-                {this.state.previewSelected ? <SinglePostPreview postToPreview={this.state.postToPreview} /> : ""}
+                {this.state.previewSelected 
+                    ? <SinglePostPreview postToPreview={this.state.postToPreview} /> 
+                    : ""}
                 {this.state.projectSelected === "all" 
                 ? allPostsArray 
                 : filteredPostArray 
