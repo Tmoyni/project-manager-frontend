@@ -1,7 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import Dropbox from 'dropbox'
-import { handleNewFormCancel } from '../actionCreators'
+import { handleNewFormCancel, fetchPosts, closeNewPostForm } from '../actionCreators'
+import CardContent from '@material-ui/core/CardContent';
+import TextField from '@material-ui/core/TextField';
+import 'date-fns'
+import DateFnsUtils from '@date-io/date-fns';
+import {
+    MuiPickersUtilsProvider,
+    KeyboardDatePicker,
+  } from '@material-ui/pickers'
+import Button from '@material-ui/core/Button';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 
 
@@ -14,14 +27,33 @@ class EditPostForm extends React.Component {
 
     state = {
         postCopy: '', 
-        liveDate: '',
+        liveDate: '2020-02-14T12:00:00',
         description: '',
         fileName: '', 
         postName: '', 
         selectedFile: null,
         fileSelected: false, 
-        image: null
+        image: null,
+        status: ""
     }
+
+    componentDidMount() {
+        let copy = this.props.post.attributes.copies
+        this.setState ({
+            postCopy: copy[copy.length - 1].text, 
+            liveDate: this.props.post.attributes.live_date,
+            description: this.props.post.attributes.description,
+            fileName: '', 
+            status: this.props.post.attributes.status
+
+        })
+    }
+
+    handleStatusSelect = event => {
+        this.setState({
+            status: event.target.value
+        });
+    };
 
     handleChange = (e) => {
         this.setState({
@@ -31,34 +63,16 @@ class EditPostForm extends React.Component {
    
     fileSelectedHandler = (e) => {
         this.setState({
-            selectedFile: e.target.files[0]
+            selectedFile: e.target.files[0], 
+            fileSelected: true
         })
     }
 
-    // componentDidMount() {
-    //     if (!!this.props.postSelected) {
-    //         this.setState({
-    //             postCopy: this.props.postSelected.attributes.copies.length > 0 ? this.props.postSelected.attributes.copies[0].text : "", 
-    //             liveDate: this.props.postSelected.attributes.live_date,
-    //             description: this.props.postSelected.attributes.description,
-    //             fileName: this.props.postSelected.attributes.description, 
-    //             postName: this.props.postSelected.attributes.name, 
-    //             selectedFile: this.props.postSelected.attributes.images.length > 0 ? this.props.postSelected.attributes.images[0].dropbox_path : ""
-    //         })
-    //         if (this.props.postSelected.attributes.images.length > 0) {
-    //             return dbx.filesDownload({  
-    //                         path: this.props.postSelected.attributes.images[0].dropbox_path,
-    //                     }).then(response => 
-    //                     this.setState ({
-    //                             image: URL.createObjectURL(response.fileBlob),
-    //                     }))
-    //         } else (this.setState ({
-    //             image: "",
-    //         }))
-    //     }
-        
-
-    // }
+    handleDateChange = (date) => {
+        this.setState({
+            liveDate: date
+        })
+    };
 
 
     uploadImageToDropbox = (dropboxpath) => {
@@ -81,13 +95,16 @@ class EditPostForm extends React.Component {
             body: JSON.stringify({ 
                 live_date: this.state.liveDate,
                 description: this.state.description,
-                status: "In Progress",
+                status: this.state.status,
                 dropbox_path: dropboxpath,
             })            
         }).then(res => res.json())
         .then(post => {
-            this.saveImageInfo(post, dropboxpath)
             this.saveCopyInfo(post)
+            console.log("Post Info Saved", post)
+            if (!!this.state.fileSelected) {
+                this.saveImageInfo(post, dropboxpath)
+            }
         })
     }
 
@@ -104,6 +121,10 @@ class EditPostForm extends React.Component {
                     dropbox_path: `${dropboxpath}/${this.state.selectedFile.name}`
                 })            
             })
+            .then((response) => response.json())
+                .then((data) => {
+                    console.log('Image Saved:', data);
+                })
     }
 
     saveCopyInfo = (post) => {
@@ -116,41 +137,81 @@ class EditPostForm extends React.Component {
                 body: JSON.stringify({ 
                     post_id: post.id,
                     text: this.state.postCopy
-                })            
-            }).then()
+                })
+            }).then((response) => response.json())
+            .then((data) => {
+                console.log('Success:', data);
+            }) 
+            .then(
+                this.props.fetchPosts(),
+                this.props.closeNewPostForm()
+            )        
     }
     
     handleSubmit = (e) => {
         e.preventDefault();
+        console.log(this.state)
         let dropboxpath = this.props.post.attributes.dropbox_path
-        this.uploadImageToDropbox(dropboxpath)
         this.savePostInfo(dropboxpath)
+        if (!!this.state.fileSelected) {
+            this.uploadImageToDropbox(dropboxpath)
+        }
     }
 
     
     render() {
+        console.log(this.props)
 
         return(
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Post Copy: <input type="text" name="postCopy" value={this.state.postCopy} onChange={this.handleChange} />
-                    </label>
+                <CardContent   align='center'>
+                    <form onSubmit={this.handleSubmit}>
+                        <TextField id="standard-textarea2" multiline label="Post Copy" type="text" name="postCopy" value={this.state.postCopy} onChange={this.handleChange} />
                         <br></br>
-                    <label>
-                        Live Date: <input type="text" name="liveDate" value={this.state.liveDate} onChange={this.handleChange} />
-                    </label>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <KeyboardDatePicker
+                            disableToolbar
+                            variant="inline"
+                            format="MM/dd/yyyy"
+                            margin="normal"
+                            id="date-picker-inline"
+                            label="Post Live Date"
+                            value={this.state.liveDate}
+                            onChange={this.handleDateChange}
+                            KeyboardButtonProps={{
+                                'aria-label': 'change date',
+                            }}
+                        />
+                        </MuiPickersUtilsProvider>
                         <br></br>
-                    <label>
-                        Description: <input type="text" name="description" value={this.state.description} onChange={this.handleChange} />
-                    </label>
+                        <TextField id="standard-textarea" multiline label="Description" type="text" name="description" value={this.state.description} onChange={this.handleChange} />
                         <br></br>
-                    <input type="file" onChange={this.fileSelectedHandler}/>
+                        <br></br>
+
+                        <FormControl >
+                            <InputLabel>Post Status:</InputLabel>
+                            <Select
+                                value={this.state.status}
+                                onChange={this.handleStatusSelect}
+                                >
+                                <MenuItem value={"Not Started"}>Not Started</MenuItem>
+                                <MenuItem value={"In Progress"}>In Progress</MenuItem>
+                                <MenuItem value={"Edits Needed"}>Edits Needed</MenuItem>
+                                <MenuItem value={"Approved"}>Approved</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <br></br>
+                        <br></br>
+
+                        <input type="file" onChange={this.fileSelectedHandler}/>
+                        <br></br>
+                        <br></br>
+                        <Button type="submit" value="Submit" variant="contained" color="primary" >
+                            Submit
+                        </Button>                     
+                    </form>
                     <br></br>
-                    <input type="submit" value="Submit" />
-                </form>
-                <button onClick={this.props.handleNewFormCancel}>Cancel</button>
-            </div>
+                <Button variant="contained" onClick={this.props.handleNewFormCancel}>Cancel</Button>
+                </CardContent>
         )
     }
 }
@@ -162,4 +223,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {handleNewFormCancel} ) (EditPostForm)
+export default connect(mapStateToProps, {handleNewFormCancel, fetchPosts, closeNewPostForm} ) (EditPostForm)

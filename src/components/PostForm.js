@@ -11,7 +11,11 @@ import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
   } from '@material-ui/pickers'
-  import Button from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 const dbx = new Dropbox.Dropbox({ 
     accessToken: process.env.REACT_APP_API_KEY,
@@ -22,13 +26,14 @@ class PostForm extends React.Component {
 
     state = {
         postCopy: '', 
-        liveDate: '2020-02-14T21:11:54',
+        liveDate: '2020-02-14T12:00:00',
         description: '',
         fileName: '', 
         postName: '', 
         selectedFile: null,
         fileSelected: false, 
-        image: null
+        image: null,
+        status: 'Not Started'
     }
 
     //for typing changes
@@ -45,6 +50,12 @@ class PostForm extends React.Component {
             fileSelected: true
         })
     }
+
+    handleStatusSelect = event => {
+        this.setState({
+            status: event.target.value
+        });
+    };
 
     handleDateChange = (date) => {
         this.setState({
@@ -75,7 +86,7 @@ class PostForm extends React.Component {
                 name: this.state.postName,
                 live_date: this.state.liveDate,
                 description: this.state.description,
-                status: "not started",
+                status: this.state.status,
                 dropbox_path: dropboxpath,
             })            
         }).then(res => res.json())
@@ -118,8 +129,7 @@ class PostForm extends React.Component {
             }).then((response) => response.json())
             .then((data) => {
                 console.log('Success:', data);
-                this.props.fetchPosts()
-                
+                this.props.fetchPosts() 
             }) 
             .then(this.props.closeNewPostForm)
     }
@@ -141,7 +151,6 @@ class PostForm extends React.Component {
 
     
     render() {
-        console.log(this.state)
         return(
             <Card maxWidth="sm" align='center'>
                 <CardContent  variant="outlined" >
@@ -170,8 +179,24 @@ class PostForm extends React.Component {
                         </MuiPickersUtilsProvider>
                             <br></br>
                         <TextField id="standard-textarea" multiline label="Description" type="text" name="description" value={this.state.description} onChange={this.handleChange} />
-                        <br></br>   
-                        <br></br>   
+                        <br></br>                          
+                        <br></br>  
+
+                        <FormControl >
+                            <InputLabel>Post Status:</InputLabel>
+                            <Select
+                                value={this.state.status}
+                                onChange={this.handleStatusSelect}
+                                >
+                                <MenuItem value={"Not Started"}>Not Started</MenuItem>
+                                <MenuItem value={"In Progress"}>In Progress</MenuItem>
+                                <MenuItem value={"Edits Needed"}>Edits Needed</MenuItem>
+                                <MenuItem value={"Approved"}>Approved</MenuItem>
+                            </Select>
+                        </FormControl> 
+                        <br></br> 
+                        <br></br>  
+  
 
                         <input type="file" onChange={this.fileSelectedHandler}/>
                         <br></br>

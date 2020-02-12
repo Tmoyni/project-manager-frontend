@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux'
 import Dropbox from 'dropbox'
 import EditPostForm from './EditPostForm'
+import CardContent from '@material-ui/core/CardContent';
+import Card from '@material-ui/core/Card';
 
 
 
@@ -17,7 +19,16 @@ class ViewPostDetails extends React.Component {
     }
 
     handleEditClick = () => {
-        console.log("clicking")
+        this.setState({
+            editClicked: true
+        })
+    }
+
+    closeEditForm = () => {
+        this.setState({
+            editClicked: false
+        })
+        this.forceUpdate()
     }
 
     renderImage() {
@@ -25,7 +36,7 @@ class ViewPostDetails extends React.Component {
 
         if (image.length > 0) {
             return dbx.filesDownload({  
-                path: image[0].dropbox_path,
+                path: image[image.length -1].dropbox_path,
             }).then(response => 
             this.setState ({
                     image: URL.createObjectURL(response.fileBlob),
@@ -34,18 +45,6 @@ class ViewPostDetails extends React.Component {
         } 
     }
 
-    // renderImage() {
-    //     let image = this.props.postSelected.attributes.images
-    //     if (image.length > 0) {
-    //         return dbx.filesDownload({  
-    //             path: image[image.length - 1].dropbox_path,
-    //         })
-    //         .then(response => 
-    //             this.setState({
-    //                 image: URL.createObjectURL(response.fileBlob)
-    //         }))
-    //     } return "https://748073e22e8db794416a-cc51ef6b37841580002827d4d94d19b6.ssl.cf3.rackcdn.com/not-found.png"
-    // }
     
     render() {
         if (this.props.postSelected.attributes.images.length > 0) {
@@ -55,29 +54,34 @@ class ViewPostDetails extends React.Component {
         let copy = this.props.postSelected.attributes.copies
 
         return(
-            <div >
+            <Card maxWidth="sm" align='center'>
+                <CardContent  variant="outlined" >
+                    { this.props.postSelected.attributes.images.length > 0
+                        ? <img width="300px" src={this.state.image} alt={this.state.name}/>
+                        : <img width="300px" src="https://748073e22e8db794416a-cc51ef6b37841580002827d4d94d19b6.ssl.cf3.rackcdn.com/not-found.png" alt={this.state.name}/>
+                    }                
 
-                { this.props.postSelected.attributes.images.length > 0
-                    ? <img width="300px" src={this.state.image} alt={this.state.name}/>
-                    : <img width="300px" src="https://748073e22e8db794416a-cc51ef6b37841580002827d4d94d19b6.ssl.cf3.rackcdn.com/not-found.png" alt={this.state.name}/>
-                }                
 
 
+                    <h2>{this.props.postSelected.attributes.name}</h2>
+                   
 
-                <h3>{this.props.postSelected.attributes.name}</h3>
-                <h5>Status: {this.props.postSelected.attributes.status}</h5>
+                    {!!this.state.editClicked 
+                    ? <EditPostForm post={this.props.postSelected} closeEditForm={this.closeEditForm}/>   
+                    : <div>
+                         <h4>Status: {this.props.postSelected.attributes.status}</h4>
+                        { this.props.postSelected.attributes.copies.length > 0 
+                            ? <p>Copy: {copy[copy.length - 1].text }</p>
+                            : <p>Copy: no copy yet</p>
+                        }    
+                        <p>Live Date: {this.props.postSelected.attributes.live_date }</p>
+                        <p>Description: {this.props.postSelected.attributes.description }</p>
+                        <button onClick={ () => this.handleEditClick() }>Edit</button>    
+                    </div> 
 
-                { this.props.postSelected.attributes.copies.length > 0 
-                    ? <p>Copy: {copy[copy.length - 1].text }</p>
-                    : <p>Copy: no copy yet</p>
-                }    
-
-                <p>Live Date: {this.props.postSelected.attributes.live_date }</p>
-                <p>Description: {this.props.postSelected.attributes.description }</p>
-                    
-                <button onClick={ () => this.handleEditClick() }>Edit</button> 
-                <EditPostForm post={this.props.postSelected}/>   
-            </div>
+                    }    
+                </CardContent>
+            </Card>        
         )
     }
 }
