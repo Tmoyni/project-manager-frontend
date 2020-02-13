@@ -71,6 +71,7 @@ function NavContainer(props) {
   const drawer = (
     <div>
       <div className={classes.toolbar} />
+      <h3 className="logosm" >Post Manager</h3>
       <List>
           <Link to="/">
             <ListItem button key='projects'>

@@ -11,3 +11,25 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.logintext {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  font-family: 'Poiret One', cursive;
+  font-size: 4em;
+  text-align: center;
+  color: Tomato
+}
+
+.logosm {
+  font-family: 'Poiret One', cursive;
+  font-size: 2em;
+  text-align: center;
+  color: Tomato
+}
