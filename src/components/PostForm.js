@@ -152,18 +152,19 @@ class PostForm extends React.Component {
     
     render() {
         return(
-            <Card maxWidth="sm" align='center'>
-                <CardContent  variant="outlined" >
+            <Card  maxWidth="sm" align='center'>
+                <CardContent variant="outlined" >
                     <h2>Create A New Post</h2>
 
                     <form onSubmit={this.handleSubmit}>
                         
-                        <TextField id="standard-basic" label="Post Name" type="text" name="postName" value={this.state.postName} onChange={this.handleChange}  />
+                        <TextField fullWidth id="standard-basic" label="Post Name" type="text" name="postName" value={this.state.postName} onChange={this.handleChange}  />
                         <br></br>
-                        <TextField id="standard-textarea" multiline label="Post Copy" type="text" name="postCopy" value={this.state.postCopy} onChange={this.handleChange} />
+                        <TextField fullWidth id="standard-textarea" multiline label="Post Copy" type="text" name="postCopy" value={this.state.postCopy} onChange={this.handleChange} />
                         <br></br>
-                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <MuiPickersUtilsProvider  utils={DateFnsUtils}>
                             <KeyboardDatePicker
+                                fullWidth
                                 disableToolbar
                                 variant="inline"
                                 format="MM/dd/yyyy"
@@ -178,12 +179,12 @@ class PostForm extends React.Component {
                             />
                         </MuiPickersUtilsProvider>
                             <br></br>
-                        <TextField id="standard-textarea" multiline label="Description" type="text" name="description" value={this.state.description} onChange={this.handleChange} />
+                        <TextField fullWidth id="standard-textarea" multiline label="Description" type="text" name="description" value={this.state.description} onChange={this.handleChange} />
                         <br></br>                          
                         <br></br>  
 
-                        <FormControl >
-                            <InputLabel>Post Status:</InputLabel>
+                        <FormControl fullWidth >
+                            <InputLabel  >Post Status:</InputLabel>
                             <Select
                                 value={this.state.status}
                                 onChange={this.handleStatusSelect}

@@ -29,6 +29,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const handleSubmit = (e) => {
+  e.preventDefault();
+  console.log("clicking")
+}
+
 export default function SignIn() {
   const classes = useStyles();
 
@@ -39,7 +44,7 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -73,16 +78,6 @@ export default function SignIn() {
             Sign In
           </Button>
           <Grid container>
-            {/* <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid> */}
-            {/* <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid> */}
           </Grid>
         </form>
       </div>

@@ -9,6 +9,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
+
 
 
 const dbx = new Dropbox.Dropbox({ 
@@ -62,23 +64,33 @@ class PostItem extends React.Component {
                             <img   height="42" width="42" src={this.state.thumbnail} alt={this.props.post.attributes.name}/> 
                         </Grid>
 
-                        <Grid item xs>
-                            <p  display="inline">{this.props.post.attributes.name} </p>
+                        <Grid item xs={3}>
+                            <Typography variant="h6">
+                                {this.props.post.attributes.name}
+                            </Typography>
                         </Grid>
 
                         {!!this.props.viewPostSelected 
                             ? ""
-                            : <Grid item xs>
-                                <Grid item >
-                                    <Stepper post={this.props.post}/> 
+                            : <Grid item >
+                                <Grid container >
+                                    <Grid item>
+
+                                    <Stepper  display="inline-block" post={this.props.post}/> 
+                                    </Grid>
+
+                                    <Grid item>
+                                    <Typography display="inline-block" variant="body2">
+                                        {this.props.post.attributes.status}
+                                    </Typography>
+                                    </Grid>
+
                                 </Grid>
-                                <Grid item >
-                                    <p>{this.props.post.attributes.status}</p>    
-                                </Grid>
+
                             </Grid>
                         }
 
-                        <Grid item >
+                        <Grid item xs={3}>
                             <Button variant="contained" size="small" color="primary"  onClick={() => this.props.handleViewPost(this.props.post)} >View Post</Button>
                             <IconButton right="0px" onClick={() => this.handleDeletePost(this.props.post)} aria-label="delete" >
                                 <DeleteIcon  fontSize="small" />

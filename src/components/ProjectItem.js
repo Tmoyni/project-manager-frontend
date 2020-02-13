@@ -67,11 +67,11 @@ class ProjectItem extends React.Component {
             <div >
                 <CssBaseline/>
                 <Grid container spacing={2}>
-                    <Grid item xs={4}>
-                        <Typography variant="h6" onClick={() => this.toggleShowPost()} > {this.props.project.attributes.name} </Typography>
+                    <Grid item >
+                        <Typography variant="h5" onClick={() => this.toggleShowPost()} > {this.props.project.attributes.name} </Typography>
                     </Grid>
-                    <Grid item>
-                        <Typography color="textSecondary"  > Due: {this.props.project.attributes.due_date} </Typography>
+                    <Grid item >
+                        <Typography variant="subtitle1" color="textSecondary"  > Due: {this.props.project.attributes.due_date} </Typography>
                     </Grid>
                     <Grid item>
                         <IconButton onClick={() => this.handleDeleteItem(this.props.project)} aria-label="delete" >

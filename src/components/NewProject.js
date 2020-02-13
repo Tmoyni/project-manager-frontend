@@ -74,10 +74,11 @@ function NewProject(props) {
                 <h2>Create A New Project</h2>
 
                 <form onSubmit={handleSubmit} >
-                    <TextField id="standard-basic" label="Project Name" name="projectName" value={projectName} onChange={handleProjectName}/>
+                    <TextField fullWidth id="standard-basic" label="Project Name" name="projectName" value={projectName} onChange={handleProjectName}/>
                     <br></br>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <KeyboardDatePicker
+                            fullWidth
                             disableToolbar
                             variant="inline"
                             format="MM/dd/yyyy"
