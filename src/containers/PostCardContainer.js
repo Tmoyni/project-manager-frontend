@@ -46,7 +46,7 @@ class PostCardContainer extends React.Component {
                 )
             })  
         } 
-        
+
         let allPostsArray = this.props.allPosts.map( post => {
             return (
               <PostCard key={post.id} post={post} handleLargePreview={this.handleLargePreview}/>
