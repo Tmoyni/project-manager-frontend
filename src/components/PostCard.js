@@ -8,6 +8,12 @@ import Typography from '@material-ui/core/Typography';
 import Dropbox from 'dropbox';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { fetchPosts } from '../actionCreators';
+import { connect } from 'react-redux'
+
+
 
 
 
@@ -35,14 +41,27 @@ class PostCard extends React.Component {
                 }))
     } else (this.setState ({
         image: "",
-}))
+    }))
     }
+
+    handleDeleteItem = (post) => {
+      fetch (`http://localhost:3000/api/v1/posts/${post.id}`, {
+          method: 'DELETE'
+      }).then(res => console.log(res))
+      .then(
+          dbx.filesDelete({path: `${post.attributes.dropbox_path}`})
+          .then((response) => {
+              console.log('deleted:', response);
+              this.props.fetchPosts() 
+          }) 
+      )
+  }
  
 
     render () {
 
         return (
-          <Grid item xs={4}>
+          <Grid item md={3} xs={4}>
           <Card >
 
             <CardHeader display="inline" align="left"
@@ -77,8 +96,9 @@ class PostCard extends React.Component {
 
             </CardContent>
             <CardActions disableSpacing>
-              
-              
+              <IconButton onClick={() => this.handleDeleteItem(this.props.post)} aria-label="delete" >
+                <DeleteIcon fontSize="small" />
+              </IconButton> 
             </CardActions>
           </Card>
           </Grid>
@@ -86,7 +106,13 @@ class PostCard extends React.Component {
       }
     }
 
-export default PostCard
+    const mapStateToProps = (state) => {
+      return {
+          allPosts: state.allPosts,
+      }
+  }
+export default connect(mapStateToProps, {fetchPosts} ) (PostCard)
+
 
 
 
