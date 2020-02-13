@@ -4,6 +4,8 @@ import Dropbox from 'dropbox'
 import EditPostForm from './EditPostForm'
 import CardContent from '@material-ui/core/CardContent';
 import Card from '@material-ui/core/Card';
+import Button from '@material-ui/core/Button';
+
 
 
 
@@ -76,7 +78,7 @@ class ViewPostDetails extends React.Component {
                         }    
                         <p>Live Date: {this.props.postSelected.attributes.live_date }</p>
                         <p>Description: {this.props.postSelected.attributes.description }</p>
-                        <button onClick={ () => this.handleEditClick() }>Edit</button>    
+                        <Button variant="contained" color="primary" onClick={ () => this.handleEditClick() }>Edit</Button>    
                     </div> 
 
                     }    

@@ -165,10 +165,11 @@ class EditPostForm extends React.Component {
         return(
                 <CardContent   align='center'>
                     <form onSubmit={this.handleSubmit}>
-                        <TextField id="standard-textarea2" multiline label="Post Copy" type="text" name="postCopy" value={this.state.postCopy} onChange={this.handleChange} />
+                        <TextField fullWidth id="standard-textarea2" multiline label="Post Copy" type="text" name="postCopy" value={this.state.postCopy} onChange={this.handleChange} />
                         <br></br>
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <KeyboardDatePicker
+                            fullWidth
                             disableToolbar
                             variant="inline"
                             format="MM/dd/yyyy"
@@ -183,11 +184,11 @@ class EditPostForm extends React.Component {
                         />
                         </MuiPickersUtilsProvider>
                         <br></br>
-                        <TextField id="standard-textarea" multiline label="Description" type="text" name="description" value={this.state.description} onChange={this.handleChange} />
+                        <TextField fullWidth id="standard-textarea" multiline label="Description" type="text" name="description" value={this.state.description} onChange={this.handleChange} />
                         <br></br>
                         <br></br>
 
-                        <FormControl >
+                        <FormControl fullWidth >
                             <InputLabel>Post Status:</InputLabel>
                             <Select
                                 value={this.state.status}
