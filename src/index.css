@@ -33,3 +33,8 @@ code {
   text-align: center;
   color: Tomato
 }
+
+.right {
+  position: absolute;
+  right: 0px;
+}
