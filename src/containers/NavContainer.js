@@ -79,12 +79,12 @@ function NavContainer(props) {
               <ListItemText primary='Projects' />
             </ListItem>
           </Link>
-          <Link to="/profile">
+          {/* <Link to="/profile">
             <ListItem button key='profile'>
               <ListItemIcon><PersonOutlineOutlinedIcon /></ListItemIcon>
               <ListItemText primary='Profile' />
             </ListItem>
-          </Link>
+          </Link> */}
           <Link to="/signin">
             <ListItem button key='logOut'>
               <ListItemIcon> 

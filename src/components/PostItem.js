@@ -90,9 +90,9 @@ class PostItem extends React.Component {
                             </Grid>
                         }
 
-                        <Grid item xs={3}>
-                            <Button variant="contained" size="small" color="primary"  onClick={() => this.props.handleViewPost(this.props.post)} >View Post</Button>
-                            <IconButton right="0px" onClick={() => this.handleDeletePost(this.props.post)} aria-label="delete" >
+                        <Grid item xs={3} className="right">
+                            <Button  variant="contained" size="small" color="primary"  onClick={() => this.props.handleViewPost(this.props.post)} >View Post</Button>
+                            <IconButton  onClick={() => this.handleDeletePost(this.props.post)} aria-label="delete" >
                                 <DeleteIcon  fontSize="small" />
                             </IconButton> 
                         </Grid>
