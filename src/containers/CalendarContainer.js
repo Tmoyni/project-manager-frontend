@@ -1,4 +1,5 @@
 import React from 'react';
+import MyCalendar from '../components/MyCalendar'
 
 
 class CalendarContainer extends React.Component {
@@ -9,6 +10,7 @@ class CalendarContainer extends React.Component {
             
             <div>
                 Calendar Container
+                <MyCalendar/>
             </div>
         )
     }
