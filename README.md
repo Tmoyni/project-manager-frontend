@@ -10,8 +10,3 @@ A React Redux web application that helps track and view projects and files for a
 * [Material UI](https://material-ui.com/) - Used for UI styling
 * [Dropbox SDK](https://www.dropbox.com/developers/documentation/javascript) - Dropbox JavaScript SDK for API v2, to integrate Dropbox the app for image and folder storage
 
-
-
-Modeled custom database schema and REST API with ActiveRecord,  Ruby on Rails and Postgres 
-Integrated Dropbox SDK for image file management
-Utilized React Redux and Material UI for the frontend User Interface
