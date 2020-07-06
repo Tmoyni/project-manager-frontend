@@ -41,7 +41,7 @@ class PostItem extends React.Component {
     }
 
     handleDeletePost = (post) => {
-        fetch (`http://localhost:3000/api/v1/posts/${post.id}`, {
+        fetch (`http://post-manager-api.herokuapp.com/api/v1/posts/${post.id}`, {
             method: 'DELETE'
         }).then(res => console.log(res))
         .then(

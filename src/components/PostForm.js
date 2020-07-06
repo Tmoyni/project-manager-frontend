@@ -116,7 +116,7 @@ class PostForm extends React.Component {
 
     //save copy text info to datebase
     saveCopyInfo = (post) => {
-        fetch('http://localhost:3000/api/v1/copies', {
+        fetch('http://post-manager-api.herokuapp.com/api/v1/copies', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

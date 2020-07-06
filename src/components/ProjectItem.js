@@ -32,7 +32,7 @@ class ProjectItem extends React.Component {
     } 
 
     handleDeleteItem = (project) => {
-        fetch (`http://localhost:3000/api/v1/projects/${project.id}`, {
+        fetch (`http://post-manager-api.herokuapp.com/api/v1/projects/${project.id}`, {
             method: 'DELETE'
         }).then(res => console.log(res))
         .then(

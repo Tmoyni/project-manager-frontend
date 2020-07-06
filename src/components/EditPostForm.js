@@ -86,7 +86,7 @@ class EditPostForm extends React.Component {
 
     savePostInfo = (dropboxpath) => { 
         let id = this.props.post.id
-        fetch(`http://localhost:3000/api/v1/posts/${id}`, {
+        fetch(`http://post-manager-api.herokuapp.com/api/v1/posts/${id}`, {
             method: 'PATCH',
             headers: {
             'Content-Type': 'application/json',
@@ -109,7 +109,7 @@ class EditPostForm extends React.Component {
     }
 
     saveImageInfo = (post, dropboxpath) => {
-        fetch('http://localhost:3000/api/v1/images', {
+        fetch('http://post-manager-api.herokuapp.com/api/v1/images', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -128,7 +128,7 @@ class EditPostForm extends React.Component {
     }
 
     saveCopyInfo = (post) => {
-        fetch('http://localhost:3000/api/v1/copies', {
+        fetch('http://post-manager-api.herokuapp.com/api/v1/copies', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
