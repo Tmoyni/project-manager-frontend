@@ -19,7 +19,6 @@ import Box from '@material-ui/core/Box';
 import { connect } from 'react-redux'
 import { handleViewClick } from '../actionCreators'
 import FolderOutlinedIcon from '@material-ui/icons/FolderOutlined';
-import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import { Link } from 'react-router-dom' 
 
