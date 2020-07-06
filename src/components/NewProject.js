@@ -41,7 +41,7 @@ function NewProject(props) {
         dbx.filesCreateFolder({path: `/${projectName}`})
             .then( response => {
                 let dropboxpath = response.path_lower
-                fetch('http://post-manager-api.herokuapp.com/api/v1/projects', {
+                fetch('https://post-manager-api.herokuapp.com/api/v1/projects', {
                     method: 'POST',
                     headers: {
                     'Content-Type': 'application/json',
