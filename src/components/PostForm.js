@@ -139,7 +139,7 @@ class PostForm extends React.Component {
         e.preventDefault();
         let dropbox_path = this.props.projectSelected.attributes.dropbox
         // dbx.filesCreateFolder({path: `${dropbox_path}`+`/${this.state.postName}`}) //create dropox path inside project folder
-        dbx.filesCreateFolder({path: `${dropbox_path}``/${this.state.postName}`}) //create dropox path inside project folder
+        dbx.filesCreateFolder({path: `${dropbox_path}`+`/${this.state.postName}`}) //create dropox path inside project folder
             .then( response => {
                 console.log(response)
                 let dropboxpath = response.path_lower //grab dropbox path from response
