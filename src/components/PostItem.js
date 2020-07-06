@@ -30,7 +30,7 @@ class PostItem extends React.Component {
         if (this.props.post.attributes.images.length > 0) {
             let image = this.props.post.attributes.images
             return dbx.filesDownload({  
-                        path: image[image.length -1].dropbox_path,
+                        path: image[image.length -1].dropbox,
                     }).then(response => 
                     this.setState ({
                             thumbnail: URL.createObjectURL(response.fileBlob),
@@ -45,7 +45,7 @@ class PostItem extends React.Component {
             method: 'DELETE'
         }).then(res => console.log(res))
         .then(
-            dbx.filesDelete({path: `${post.attributes.dropbox_path}`})
+            dbx.filesDelete({path: `${post.attributes.dropbox}`})
             .then( response => {
                 console.log('deleted post:', response);
                 this.props.fetchPosts() 

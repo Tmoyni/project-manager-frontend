@@ -30,7 +30,7 @@ class PostCard extends React.Component {
     componentDidMount() {
       if (this.props.post.attributes.images.length > 0) {
         return dbx.filesDownload({  
-                    path: this.props.post.attributes.images[0].dropbox_path,
+                    path: this.props.post.attributes.images[0].dropbox,
                 }).then(response => 
                 this.setState ({
                         image: URL.createObjectURL(response.fileBlob),
@@ -45,7 +45,7 @@ class PostCard extends React.Component {
           method: 'DELETE'
       }).then(res => console.log(res))
       .then(
-          dbx.filesDelete({path: `${post.attributes.dropbox_path}`})
+          dbx.filesDelete({path: `${post.attributes.dropbox}`})
           .then((response) => {
               console.log('deleted:', response);
               this.props.fetchPosts() 

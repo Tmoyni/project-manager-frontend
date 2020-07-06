@@ -87,7 +87,7 @@ class PostForm extends React.Component {
                 live_date: this.state.liveDate,
                 description: this.state.description,
                 status: this.state.status,
-                dropbox_path: dropboxpath,
+                dropbox: dropboxpath,
             })            
         }).then(res => res.json())
         .then(post => {
@@ -109,7 +109,7 @@ class PostForm extends React.Component {
                 body: JSON.stringify({ 
                     post_id: post.id,
                     file_name: this.state.selectedFile.name,
-                    dropbox_path: `${dropboxpath}/${this.state.selectedFile.name}`
+                    dropbox: `${dropboxpath}/${this.state.selectedFile.name}`
                 })            
             })
     }
@@ -137,7 +137,7 @@ class PostForm extends React.Component {
     //create dropbox path for the new post and then run helper methods to save the rest of the data
     handleSubmit = (e) => {
         e.preventDefault();
-        let dropbox_path = this.props.projectSelected.attributes.dropbox_path
+        let dropbox_path = this.props.projectSelected.attributes.dropbox
         // dbx.filesCreateFolder({path: `${dropbox_path}`+`/${this.state.postName}`}) //create dropox path inside project folder
         dbx.filesCreateFolder({path: `${dropbox_path}``/${this.state.postName}`}) //create dropox path inside project folder
             .then( response => {

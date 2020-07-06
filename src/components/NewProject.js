@@ -15,9 +15,6 @@ import Card from '@material-ui/core/Card';
 
 
 
-
-
-
 function NewProject(props) {
     const dbx = new Dropbox.Dropbox({ 
         accessToken: process.env.REACT_APP_API_KEY,
@@ -51,7 +48,7 @@ function NewProject(props) {
                         user_id: 1,
                         name: projectName,
                         due_date: selectedDate,
-                        dropbox_path: dropboxpath
+                        dropbox: dropboxpath
                     })           
                 })
                 .then((response) => response.json())
@@ -64,11 +61,10 @@ function NewProject(props) {
             .catch(function(error) {
             console.log(error)
         }).then(
-            
             console.log("fetching"))
     }
         return(
-            <Card maxWidth="sm" align='center'>
+            <Card width="sm" align='center'>
                 <CardContent  variant="outlined" >
 
                 <h2>Create A New Project</h2>
