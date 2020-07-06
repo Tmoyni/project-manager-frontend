@@ -36,7 +36,7 @@ class ProjectItem extends React.Component {
             method: 'DELETE'
         }).then(res => console.log(res))
         .then(
-            dbx.filesDelete({path: `${project.attributes.dropbox_path}`})
+            dbx.filesDelete({path: `${project.attributes.dropbox}`})
             .then((response) => {
                 console.log('deleted:', response);
                 this.props.fetchProjects() 

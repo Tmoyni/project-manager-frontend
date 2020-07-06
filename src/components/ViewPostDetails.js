@@ -38,7 +38,7 @@ class ViewPostDetails extends React.Component {
 
         if (image.length > 0) {
             return dbx.filesDownload({  
-                path: image[image.length -1].dropbox_path,
+                path: image[image.length -1].dropbox,
             }).then(response => 
             this.setState ({
                     image: URL.createObjectURL(response.fileBlob),

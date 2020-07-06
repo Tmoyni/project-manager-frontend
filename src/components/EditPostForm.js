@@ -96,7 +96,7 @@ class EditPostForm extends React.Component {
                 live_date: this.state.liveDate,
                 description: this.state.description,
                 status: this.state.status,
-                dropbox_path: dropboxpath,
+                dropbox: dropboxpath,
             })            
         }).then(res => res.json())
         .then(post => {
@@ -118,7 +118,7 @@ class EditPostForm extends React.Component {
                 body: JSON.stringify({ 
                     post_id: post.id,
                     file_name: this.state.selectedFile.name,
-                    dropbox_path: `${dropboxpath}/${this.state.selectedFile.name}`
+                    dropbox: `${dropboxpath}/${this.state.selectedFile.name}`
                 })            
             })
             .then((response) => response.json())
@@ -151,7 +151,7 @@ class EditPostForm extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         console.log(this.state)
-        let dropboxpath = this.props.post.attributes.dropbox_path
+        let dropboxpath = this.props.post.attributes.dropbox
         this.savePostInfo(dropboxpath)
         if (!!this.state.fileSelected) {
             this.uploadImageToDropbox(dropboxpath)
