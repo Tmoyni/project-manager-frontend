@@ -33,7 +33,7 @@ class SignIn extends React.Component {
   return (
     <Grid container spacing={1} >
       <Grid item xs={8}>
-        <img width="100%" src="https://static.buffer.com/marketing/static/hero/hero-publish@2x.jpg" alt="hero image"/>
+        <img width="100%" src="https://static.buffer.com/marketing/static/hero/hero-publish@2x.jpg" alt="hero"/>
       </Grid>
 
       <Grid item xs={4}>
