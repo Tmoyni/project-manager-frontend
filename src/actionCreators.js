@@ -12,7 +12,7 @@ export const VIEW_TYPE = "VIEW_TYPE"
 
 export const fetchProjects = () => {
     return (dispatch) => {
-        fetch('http://post-manager-api.herokuapp.com/api/v1/projects')
+        fetch('https://post-manager-api.herokuapp.com/api/v1/projects')
           .then(res => res.json())
           .then(projects => {
               dispatch ({type: FETCH_PROJECTS, payload: projects.data })            
@@ -22,7 +22,7 @@ export const fetchProjects = () => {
 
 export const fetchPosts = () => {
     return (dispatch) => {
-        fetch('http://post-manager-api.herokuapp.com/api/v1/posts')
+        fetch('https://post-manager-api.herokuapp.com/api/v1/posts')
           .then(res => res.json())
           .then(posts => {
               dispatch ({type: FETCH_POSTS, payload: posts.data })            
