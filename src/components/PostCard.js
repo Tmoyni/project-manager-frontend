@@ -14,10 +14,6 @@ import { fetchPosts } from '../actionCreators';
 import { connect } from 'react-redux'
 
 
-
-
-
-
 const dbx = new Dropbox.Dropbox({ 
   accessToken: process.env.REACT_APP_API_KEY,
   fetch: fetch
@@ -55,7 +51,7 @@ class PostCard extends React.Component {
               this.props.fetchPosts() 
           }) 
       )
-  }
+    }
  
 
     render () {
@@ -66,7 +62,7 @@ class PostCard extends React.Component {
 
             <CardHeader display="inline" align="left"
               avatar={
-                <Avatar alt="Audible" src="https://scontent-lga3-1.cdninstagram.com/v/t51.2885-19/11363666_1010263159024098_1086305221_a.jpg?_nc_ht=scontent-lga3-1.cdninstagram.com&_nc_ohc=jlhnLpMBM-UAX8-_cQl&oh=99b82c8188af1c5c54f3ece7ebee62e7&oe=5EBC03C5">
+                <Avatar alt="Audible" >
                 </Avatar>
               }
               title="audible"
