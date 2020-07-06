@@ -75,7 +75,7 @@ class PostForm extends React.Component {
 
     //save info for the post and the new dropbox path to database
     savePostInfo = (dropboxpath) => { 
-        fetch('https://localhost:3000/api/v1/posts', {
+        fetch('https://post-manager-api.herokuapp.com/api/v1/posts', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -100,7 +100,7 @@ class PostForm extends React.Component {
 
     //save image data and dropbox path to database
     saveImageInfo = (post, dropboxpath) => {
-        fetch('https://localhost:3000/api/v1/images', {
+        fetch('https://post-manager-api.herokuapp.com/api/v1/images', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
