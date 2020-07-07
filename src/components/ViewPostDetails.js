@@ -56,7 +56,7 @@ class ViewPostDetails extends React.Component {
         let copy = this.props.postSelected.attributes.copies
 
         return(
-            <Card maxWidth="sm" align='center'>
+            <Card maxwidth="sm" align='center'>
                 <CardContent  variant="outlined" >
                     { this.props.postSelected.attributes.images.length > 0
                         ? <img width="300px" src={this.state.image} alt={this.state.name}/>

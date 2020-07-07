@@ -1,17 +1,18 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
+import { red } from '@material-ui/core/colors';
 
 const useStyles = makeStyles({
   root: {
-    width: 400,
-    // flexGrow: 1,
+    width: 100,
+    flexGrow: 3,
+    color: red,
   },
 });
 
 export default function Stepper(props) {
   const classes = useStyles();
-  // const [activeStep, setActiveStep] = React.useState(0);
 
   const renderSwitch = (status) => {
     switch(status) {

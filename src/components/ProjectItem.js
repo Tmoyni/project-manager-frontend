@@ -22,7 +22,7 @@ class ProjectItem extends React.Component {
 
 
     state = {
-        projectIsClicked: false,
+        projectIsClicked: true,
     }
     
     toggleShowPost() {
