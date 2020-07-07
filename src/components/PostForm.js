@@ -137,11 +137,10 @@ class PostForm extends React.Component {
     //create dropbox path for the new post and then run helper methods to save the rest of the data
     handleSubmit = (e) => {
         e.preventDefault();
-        let dropbox_path = this.props.projectSelected.attributes.dropbox
-        // dbx.filesCreateFolder({path: `${dropbox_path}`+`/${this.state.postName}`}) //create dropox path inside project folder
+        const dropbox_path = this.props.projectSelected.attributes.dropbox
         dbx.filesCreateFolder({path: `${dropbox_path}`+`/${this.state.postName}`}) //create dropox path inside project folder
             .then( response => {
-                console.log(response)
+                console.log("dropbox response:", response)
                 let dropboxpath = response.path_lower //grab dropbox path from response
                     this.savePostInfo(dropboxpath)    
                     if (!!this.state.fileSelected) {
@@ -153,7 +152,7 @@ class PostForm extends React.Component {
     
     render() {
         return(
-            <Card  maxWidth="sm" align='center'>
+            <Card  maxwidth="sm" align='center'>
                 <CardContent variant="outlined" >
                     <h2>Create A New Post</h2>
 

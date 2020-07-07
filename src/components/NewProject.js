@@ -63,45 +63,45 @@ function NewProject(props) {
         }).then(
             console.log("fetching"))
     }
-        return(
-            <Card width="sm" align='center'>
-                <CardContent  variant="outlined" >
+    return(
+        <Card width="sm" align='center'>
+            <CardContent  variant="outlined" >
 
-                <h2>Create A New Project</h2>
+            <h2>Create A New Project</h2>
 
-                <form onSubmit={handleSubmit} >
-                    <TextField fullWidth id="standard-basic" label="Project Name" name="projectName" value={projectName} onChange={handleProjectName}/>
-                    <br></br>
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <KeyboardDatePicker
-                            fullWidth
-                            disableToolbar
-                            variant="inline"
-                            format="MM/dd/yyyy"
-                            margin="normal"
-                            id="date-picker-inline"
-                            label="Project Due Date"
-                            value={selectedDate}
-                            onChange={handleDateChange}
-                            KeyboardButtonProps={{
-                                'aria-label': 'change date',
-                            }}
-                        />
-                    </MuiPickersUtilsProvider>
-                    <br></br>
-                    <br></br>
-
-                    <Button type="submit" value="Submit" variant="contained" color="primary">
-                        Submit
-                    </Button> 
-                </form>
+            <form onSubmit={handleSubmit} >
+                <TextField fullWidth id="standard-basic" label="Project Name" name="projectName" value={projectName} onChange={handleProjectName}/>
+                <br></br>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <KeyboardDatePicker
+                        fullWidth
+                        disableToolbar
+                        variant="inline"
+                        format="MM/dd/yyyy"
+                        margin="normal"
+                        id="date-picker-inline"
+                        label="Project Due Date"
+                        value={selectedDate}
+                        onChange={handleDateChange}
+                        KeyboardButtonProps={{
+                            'aria-label': 'change date',
+                        }}
+                    />
+                </MuiPickersUtilsProvider>
+                <br></br>
                 <br></br>
 
-                <Button variant="contained" onClick={props.closeNewProjectForm}>Cancel</Button>
+                <Button type="submit" value="Submit" variant="contained" color="primary">
+                    Submit
+                </Button> 
+            </form>
+            <br></br>
 
-                </CardContent>
-            </Card>
-        )
+            <Button variant="contained" onClick={props.closeNewProjectForm}>Cancel</Button>
+
+            </CardContent>
+        </Card>
+    )
 }
 
 

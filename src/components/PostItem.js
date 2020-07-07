@@ -57,7 +57,7 @@ class PostItem extends React.Component {
     render() {
 
         return(
-            <div>
+            <div className="postItem">
                 <ListItem >
                     <Grid container spacing={2}>
                         <Grid item >
@@ -76,11 +76,11 @@ class PostItem extends React.Component {
                                 <Grid container >
                                     <Grid item>
 
-                                    <Stepper  display="inline-block" post={this.props.post}/> 
+                                    <Stepper post={this.props.post}/> 
                                     </Grid>
 
                                     <Grid item>
-                                    <Typography display="inline-block" variant="body2">
+                                    <Typography variant="body2">
                                         {this.props.post.attributes.status}
                                     </Typography>
                                     </Grid>

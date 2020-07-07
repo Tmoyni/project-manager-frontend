@@ -115,9 +115,9 @@ function NavContainer(props) {
             <Box margin="10px" display="inline" id="list" onClick={(e) => props.handleViewClick(e.target.id)}>
                 List
             </Box>
-            <Box margin="10px" display="inline" id="calendar" onClick={(e) => props.handleViewClick(e.target.id)}>
+            {/* <Box margin="10px" display="inline" id="calendar" onClick={(e) => props.handleViewClick(e.target.id)}>
                  Calendar
-            </Box>
+            </Box> */}
             <Box margin="10px" display="inline" id="preview" onClick={(e) => props.handleViewClick(e.target.id)}>
                  Preview
             </Box>
