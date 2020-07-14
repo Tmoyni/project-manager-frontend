@@ -40,3 +40,34 @@
 .fileInput {
   display: 'none',
 }
+
+.flex {
+  display: flex;
+}
+
+.project__add-btn {
+  margin-right: .5rem;
+}
+
+.project__info {
+  display: flex;
+  align-items: center;
+
+}
+
+.project__title {
+  font-size: 1.5rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  margin-right: 1.5rem;
+}
+
+.project__sub {
+  position : relative;
+  margin-right: 1rem;
+  top : .15rem;
+}
+
+.project__delete-btn {
+  margin-right: .5rem;
+}
